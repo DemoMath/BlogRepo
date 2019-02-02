@@ -2,7 +2,7 @@
 title: SSH协议远程登录
 date: 2017-01-03 11:02:09
 tags:
-  - ssh
+  - SSH
   - 计算机网络
 categories: 计算机网络
 author: 吴迪
