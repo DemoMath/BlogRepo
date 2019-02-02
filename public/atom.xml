@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://wudiblog.com/"/>
   <updated>2019-02-02T05:48:00.956Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://wudiblog.com/</id>
   
   <author>
     <name>大太阳</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>测试</title>
-    <link href="http://yoursite.com/2019/02/01/test/"/>
-    <id>http://yoursite.com/2019/02/01/test/</id>
+    <link href="http://wudiblog.com/2019/02/01/test/"/>
+    <id>http://wudiblog.com/2019/02/01/test/</id>
     <published>2019-02-01T08:03:04.000Z</published>
     <updated>2019-02-02T05:48:00.956Z</updated>
     
@@ -35,23 +35,23 @@
     
     </summary>
     
-      <category term="测试" scheme="http://yoursite.com/categories/%E6%B5%8B%E8%AF%95/"/>
+      <category term="测试" scheme="http://wudiblog.com/categories/%E6%B5%8B%E8%AF%95/"/>
     
     
-      <category term="test" scheme="http://yoursite.com/tags/test/"/>
+      <category term="test" scheme="http://wudiblog.com/tags/test/"/>
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+      <category term="测试" scheme="http://wudiblog.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/02/01/hello-world/"/>
-    <id>http://yoursite.com/2019/02/01/hello-world/</id>
+    <link href="http://wudiblog.com/2019/02/01/hello-world/"/>
+    <id>http://wudiblog.com/2019/02/01/hello-world/</id>
     <published>2019-02-01T07:24:42.000Z</published>
     <updated>2019-02-01T07:24:42.000Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="quick-start"><a class="markdownIt-Anchor" href="#quick-start"></a> Quick Start</h2><h3 id="create-a-new-post"><a class="markdownIt-Anchor" href="#create-a-new-post"></a> Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="run-server"><a class="markdownIt-Anchor" href="#run-server"></a> Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="generate-static-files"><a class="markdownIt-Anchor" href="#generate-static-files"></a> Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="deploy-to-remote-sites"><a class="markdownIt-Anchor" href="#deploy-to-remote-sites"></a> Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
     
     <summary type="html">
     
@@ -67,8 +67,8 @@
   
   <entry>
     <title>Linux网络命令</title>
-    <link href="http://yoursite.com/2017/01/13/Linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/2017/01/13/Linux网络命令/</id>
+    <link href="http://wudiblog.com/2017/01/13/Linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/"/>
+    <id>http://wudiblog.com/2017/01/13/Linux网络命令/</id>
     <published>2017-01-13T15:02:09.000Z</published>
     <updated>2019-02-02T05:54:00.761Z</updated>
     
@@ -95,19 +95,51 @@
     
     </summary>
     
-      <category term="计算机网络" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+      <category term="Linux" scheme="http://wudiblog.com/tags/Linux/"/>
     
-      <category term="计算机网络" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网关作用以及讲解</title>
+    <link href="http://wudiblog.com/2017/01/12/%E7%BD%91%E5%85%B3%E4%BD%9C%E7%94%A8%E4%BB%A5%E5%8F%8A%E8%AE%B2%E8%A7%A3/"/>
+    <id>http://wudiblog.com/2017/01/12/网关作用以及讲解/</id>
+    <published>2017-01-12T06:13:57.000Z</published>
+    <updated>2019-02-02T06:27:25.826Z</updated>
+    
+    <content type="html"><![CDATA[<p>概念：</p><ul><li>网关（Gateway）又称网间连接器，协议转换器</li><li>网关在网络层以上实现网络互联，是最复杂的网络互连设备，仅用于两个高层协议不同的网络互联</li><li>网管既可以用于广域网互联，也可以用于局域网互联。</li><li>网关是一种充当转换重任的服务器或路由器</li></ul><p>示意图：</p><p><img src="/2017/01/12/网关作用以及讲解/image1.png" alt="2017-01-12 23-49-32屏幕截图"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;网关（Gateway）又称网间连接器，协议转换器&lt;/li&gt;
+&lt;li&gt;网关在网络层以上实现网络互联，是最复杂的网络互连设备，仅用于两个高层协议不同的网络互联&lt;/li&gt;
+&lt;li&gt;网管既可以用于广域网互联，也可以用于局域网互联。&lt;/li&gt;
+&lt;li
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="网关" scheme="http://wudiblog.com/tags/%E7%BD%91%E5%85%B3/"/>
     
   </entry>
   
   <entry>
     <title>SSH协议远程登录</title>
-    <link href="http://yoursite.com/2017/01/03/SSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/"/>
-    <id>http://yoursite.com/2017/01/03/SSH协议远程登录/</id>
+    <link href="http://wudiblog.com/2017/01/03/SSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/"/>
+    <id>http://wudiblog.com/2017/01/03/SSH协议远程登录/</id>
     <published>2017-01-03T03:02:09.000Z</published>
     <updated>2019-02-02T05:53:59.551Z</updated>
     
@@ -128,12 +160,12 @@
     
     </summary>
     
-      <category term="计算机网络" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     
-      <category term="计算机网络" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
-      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
+      <category term="ssh" scheme="http://wudiblog.com/tags/ssh/"/>
     
   </entry>
   

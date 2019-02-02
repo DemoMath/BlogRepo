@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yoursite.com/2017/01/13/Linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://wudiblog.com/2017/01/12/%E7%BD%91%E5%85%B3%E4%BD%9C%E7%94%A8%E4%BB%A5%E5%8F%8A%E8%AE%B2%E8%A7%A3/</loc>
     <lastmod>2019-02-02</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2017/01/03/SSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/</loc>
+    <loc>http://wudiblog.com/2017/01/13/Linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2019-02-02</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2019/02/01/test/</loc>
+    <loc>http://wudiblog.com/2017/01/03/SSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/</loc>
     <lastmod>2019-02-02</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2019/02/01/hello-world/</loc>
+    <loc>http://wudiblog.com/2019/02/01/test/</loc>
+    <lastmod>2019-02-02</lastmod>
+  </url>  <url>
+    <loc>http://wudiblog.com/2019/02/01/hello-world/</loc>
     <lastmod>2019-02-01</lastmod>
   </url>
 </urlset>
