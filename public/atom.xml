@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>爱学习的大太阳</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-02-02T05:48:00.956Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>大太阳</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>测试</title>
+    <link href="http://yoursite.com/2019/02/01/test/"/>
+    <id>http://yoursite.com/2019/02/01/test/</id>
+    <published>2019-02-01T08:03:04.000Z</published>
+    <updated>2019-02-02T05:48:00.956Z</updated>
+    
+    <content type="html"><![CDATA[<p>这是一条测试</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这是一条测试&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="测试" scheme="http://yoursite.com/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="test" scheme="http://yoursite.com/tags/test/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2019/02/01/hello-world/"/>
+    <id>http://yoursite.com/2019/02/01/hello-world/</id>
+    <published>2019-02-01T07:24:42.000Z</published>
+    <updated>2019-02-01T07:24:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux网络命令</title>
+    <link href="http://yoursite.com/2017/01/13/Linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2017/01/13/Linux网络命令/</id>
+    <published>2017-01-13T15:02:09.000Z</published>
+    <updated>2019-02-02T05:54:00.761Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>ifconfig：<ul><li>查看与配置网络状态命令 、</li></ul></li><li>ifup/ifdown + 网卡名：<ul><li>启用/禁用网卡</li></ul></li><li>netstat选项（网络状态查询）：<ul><li>-t：列出TCP协议端口</li><li>-u：列出UDP协议端口</li><li>-n：不使用域名与服务名，而使用IP地址和端口号</li><li>-l：仅列出在监听状态网络服务</li><li>-a：列出所有</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;ifconfig：
+&lt;ul&gt;
+&lt;li&gt;查看与配置网络状态命令 、&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ifup/ifdown + 网卡名：
+&lt;ul&gt;
+&lt;li&gt;启用/禁用网卡&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;netstat选项（网络状态查询）：
+&lt;
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="计算机网络" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSH协议远程登录</title>
+    <link href="http://yoursite.com/2017/01/03/SSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/"/>
+    <id>http://yoursite.com/2017/01/03/SSH协议远程登录/</id>
+    <published>2017-01-03T03:02:09.000Z</published>
+    <updated>2019-02-02T05:53:59.551Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>SSH协议原理</p><p>对称加密算法：</p><p>采用单钥密码系统的加密方法，同一个秘钥可以同时用作信息的加密和解密，这种加密方法成为对称加密，也称为单秘钥加密</p><p>非对称加密算法：</p><p>又名“公开秘钥加密算法”，非对称加密算法需要两个秘钥：公开秘钥和私有秘钥</p><p>​ssh 用户名@ip  远程登录指定Linux服务器</p><p>​scp [-r] 用户名@ip：文件路径 本地路径  下载文件</p><p>​scp [-r] 本地文件 用户名@ip：上传路径  上传文件</p></li><li><p><strong>SecureCRT远程管理工具</strong></p></li></ul><p>​       windows平台管理linux服务器，收费</p><ul><li><strong>Xshell工具</strong></li></ul><p>​       windows平台管理linux服务器，免费</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;SSH协议原理&lt;/p&gt;
+&lt;p&gt;对称加密算法：&lt;/p&gt;
+&lt;p&gt;采用单钥密码系统的加密方法，同一个秘钥可以同时用作信息的加密和解密，这种加密方法成为对称加密，也称为单秘钥加密&lt;/p&gt;
+&lt;p&gt;非对称加密算法：&lt;/p&gt;
+&lt;p&gt;又名“公开秘钥加密算法”，非对称加密
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
+    
+  </entry>
+  
+</feed>
