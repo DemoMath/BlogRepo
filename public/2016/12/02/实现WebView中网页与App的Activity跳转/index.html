@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>实现WebView中网页与App的Activity跳转 | 爱学习的大太阳</title>
+  <meta name="description" content="介绍三种实现方式:  通过JS来实现 通过scheme来实现(不支持webview的重定向) 通过webview的重定向（setWebViewClient（WebView view,String url）{})方法中对url判断，隐式意图打开Activity    1.通过JS 只需要三个步骤:  WebView开启JavaScript脚本执行。 WebView设置供JavaScript调用的交">
+<meta name="keywords" content="Android,WebView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现WebView中网页与App的Activity跳转">
+<meta property="og:url" content="http://wudiblog.com/2016/12/02/实现WebView中网页与App的Activity跳转/index.html">
+<meta property="og:site_name" content="爱学习的大太阳">
+<meta property="og:description" content="介绍三种实现方式:  通过JS来实现 通过scheme来实现(不支持webview的重定向) 通过webview的重定向（setWebViewClient（WebView view,String url）{})方法中对url判断，隐式意图打开Activity    1.通过JS 只需要三个步骤:  WebView开启JavaScript脚本执行。 WebView设置供JavaScript调用的交">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-02T07:08:06.255Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现WebView中网页与App的Activity跳转">
+<meta name="twitter:description" content="介绍三种实现方式:  通过JS来实现 通过scheme来实现(不支持webview的重定向) 通过webview的重定向（setWebViewClient（WebView view,String url）{})方法中对url判断，隐式意图打开Activity    1.通过JS 只需要三个步骤:  WebView开启JavaScript脚本执行。 WebView设置供JavaScript调用的交">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://wudiblog.com/2016/12/02/实现WebView中网页与App的Activity跳转/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="爱学习的大太阳" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="./favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/demomath" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">大太阳</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">但行好事 莫问前程</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/demomath" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/5656466836" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>越努力，越幸运！</p><p>越自律，越自由！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/北航/">北航</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作/">工作</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/版本控制/">版本控制</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络安全/">网络安全</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a><span class="category-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/DNS/" style="font-size: 13px;">DNS</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/IP/" style="font-size: 13px;">IP</a> <a href="/tags/ISO/" style="font-size: 13px;">ISO</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/OSI/" style="font-size: 13.5px;">OSI</a> <a href="/tags/SSH/" style="font-size: 13px;">SSH</a> <a href="/tags/TCP-IP/" style="font-size: 13px;">TCP/IP</a> <a href="/tags/WebView/" style="font-size: 13px;">WebView</a> <a href="/tags/以太坊/" style="font-size: 13px;">以太坊</a> <a href="/tags/北航/" style="font-size: 13.5px;">北航</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/子网掩码/" style="font-size: 13px;">子网掩码</a> <a href="/tags/学习/" style="font-size: 13px;">学习</a> <a href="/tags/工作/" style="font-size: 13px;">工作</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/版本管理/" style="font-size: 13px;">版本管理</a> <a href="/tags/端口/" style="font-size: 13px;">端口</a> <a href="/tags/网关/" style="font-size: 13px;">网关</a> <a href="/tags/网安/" style="font-size: 13px;">网安</a> <a href="/tags/虚拟货币/" style="font-size: 13px;">虚拟货币</a> <a href="/tags/计算机网络/" style="font-size: 14px;">计算机网络</a> <a href="/tags/资源/" style="font-size: 13px;">资源</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/工作/">工作</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/01/29/18年公司年会/" class="title">18年公司年会</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-29T08:27:03.000Z" itemprop="datePublished">2019-01-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/机器学习/">机器学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/01/10/基于多列卷积神经网络的单图像人群计数/" class="title">「借鉴」基于多列卷积神经网络的单图像人群计数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-10T08:39:55.000Z" itemprop="datePublished">2019-01-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/北航/">北航</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/09/15/考上北航了/" class="title">考上北航了</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-09-15T08:02:12.000Z" itemprop="datePublished">2018-09-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/网络安全/">网络安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/06/06/网安5000G资源/" class="title">网安5000G资源</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-06-05T17:13:07.000Z" itemprop="datePublished">2018-06-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/区块链/">区块链</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/05/04/Windows环境以太坊私链搭建/" class="title">Windows环境以太坊私链搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-05-04T03:10:22.000Z" itemprop="datePublished">2018-05-04</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-实现WebView中网页与App的Activity跳转" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      实现WebView中网页与App的Activity跳转
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2016/12/02/实现WebView中网页与App的Activity跳转/" class="article-date">
+	  <time datetime="2016-12-02T15:58:02.000Z" itemprop="datePublished">2016-12-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/移动端/">移动端</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Android/">Android</a>, <a class="article-tag-link" href="/tags/WebView/">WebView</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2016/12/02/实现WebView中网页与App的Activity跳转/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 820(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <blockquote>
+<p>介绍三种实现方式:</p>
+<ol>
+<li>通过JS来实现</li>
+<li>通过scheme来实现(不支持webview的重定向)</li>
+<li>通过webview的重定向（setWebViewClient（WebView view,String url）{})方法中对url判断，隐式意图打开Activity</li>
+</ol>
+</blockquote>
+<h3 id="1通过js"><a class="markdownIt-Anchor" href="#1通过js"></a> 1.通过JS</h3>
+<p>只需要三个步骤:</p>
+<ul>
+<li>WebView开启JavaScript脚本执行。</li>
+<li>WebView设置供JavaScript调用的交互接口。</li>
+<li>客户端和网页端编写调用对方的代码。</li>
+</ul>
+<h3 id="2通过schemedeep-linking深度链接"><a class="markdownIt-Anchor" href="#2通过schemedeep-linking深度链接"></a> 2.通过scheme（Deep Linking深度链接)</h3>
+<p>2.1在html中，设置链接</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"myscheme://host：8080/path/?action=com.example.wudi.webviewdemo.baginfo&amp;id=123"</span>&gt;</span> Take a QR code <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--bagin</span></span><br><span class="line"><span class="comment">     下面介绍各个部分:</span></span><br><span class="line"><span class="comment">          "myscheme":scheme</span></span><br><span class="line"><span class="comment">          "host":host主机</span></span><br><span class="line"><span class="comment">          "8080":post端口号</span></span><br><span class="line"><span class="comment">          "path":path路径</span></span><br><span class="line"><span class="comment">          "action"=com.example.wudi.webviewdemo.baginfo&amp;id=123:params参数</span></span><br><span class="line"><span class="comment">  --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.2然后我们在清单文件中需要给要打开的activity设置intent-filter的scheme(scheme:计划；组合；体制；诡计)，其中scheme必须和链接中scheme保持一致,host可写可不写，自行忽略</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".DemoActivity"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">!—</span> <span class="attr">URI</span> <span class="attr">Scheme</span>方式 <span class="attr">-</span>—&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"myscheme"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"host"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.BROWSABLE"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;data android:host=""</span></span><br><span class="line"><span class="comment">            android:mimeType=""</span></span><br><span class="line"><span class="comment">            android:path=""</span></span><br><span class="line"><span class="comment">            android:pathPattern=""</span></span><br><span class="line"><span class="comment">            android:pathPrefix=""</span></span><br><span class="line"><span class="comment">            android:port=""</span></span><br><span class="line"><span class="comment">            android:scheme=""</span></span><br><span class="line"><span class="comment">            android:ssp=""</span></span><br><span class="line"><span class="comment">            android:sspPattern=""</span></span><br><span class="line"><span class="comment">            android:sspPrefix=""/&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.3 这样我们在要打开的activity中获取参数:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = getIntent();</span><br><span class="line">Log.e(<span class="string">"TAG"</span>, <span class="string">"scheme:"</span> + intent.getScheme());</span><br><span class="line">Uri uri = intent.getData();</span><br><span class="line"><span class="keyword">if</span> (uri != <span class="keyword">null</span>) &#123;</span><br><span class="line">    Log.e(<span class="string">"TAG"</span>, <span class="string">"id:"</span> + uri.getQueryParamter(<span class="string">"id"</span>));</span><br><span class="line">    Log.e(<span class="string">"TAG"</span>, <span class="string">"action:"</span> + uri.getQueryParamter(<span class="string">"name"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>需要注意的是：这种方式不支持webview的重定向操作，如果你对webview设置了重定向，那么就会返回:<a href="http://stackoverflow.com/questions/15568792/oauth-and-custom-scheme-result-in-a-err-unknown-url-scheme-in-chrome" target="_blank" rel="noopener">ERR_UNKNOWN_URL_SCHEME</a>(点击链接查看老外咋解决，前提要翻墙，其实他们也没解决)。</strong></p>
+<h3 id="3通过隐式意图"><a class="markdownIt-Anchor" href="#3通过隐式意图"></a> 3.通过隐式意图</h3>
+<p>如果我们不想写js，又想要对webview进行重定向（大多数android开发都需要，因为要适配),那么就可以通过隐式意图</p>
+<p>基本上和第二种方式相同：</p>
+<p>3.1 在html中:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"android://?action=com.example.wudi.webviewdemo.baginfo&amp;id=123"</span>&gt;</span> Take a QR code <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.2 与第二种方式不同的是：当中的链接是自己自定义的，如果你够聪明，就能拼写出优秀的uri，就像上边我拼的，因为项目中，需要和ios同步开发（ios用的LMBIOS），所以我定义了android来作为我的区分。  下边我们需要在清单文件中给activity设置action和category</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".DemoActivity"</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- &lt;!— URI Scheme方式 -—&gt;</span></span><br><span class="line"><span class="comment">    &lt;intent-filter&gt;</span></span><br><span class="line"><span class="comment">        &lt;action android:name="com.example.wudi.webviewdemo.baginfo"/&gt;</span></span><br><span class="line"><span class="comment">        &lt;category android:name="android.intent.category.DEFAULT"/&gt;</span></span><br><span class="line"><span class="comment">    &lt;/intent-filter&gt;</span></span><br><span class="line"><span class="comment">&lt;/activity&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.3 可以发现我设置的action和上边链接中action参数一致，下边就需要在webview重定向时，进行判断了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">webview.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="comment">//返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器</span></span><br><span class="line">        <span class="keyword">if</span> (url.startsWith(<span class="string">"android"</span>)) &#123;</span><br><span class="line">            Uri uri = Uri.parse(url);</span><br><span class="line">            String host = uri.getHost();</span><br><span class="line">            String action = uri.getQueryParameter(<span class="string">"action"</span>);</span><br><span class="line">            String id = uri.getQueryParameter(<span class="string">"id"</span>);</span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">            intent.setAction(action);</span><br><span class="line">            intent.putExtra(<span class="string">"id"</span>,id);</span><br><span class="line">            startActivity(intent);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            view.loadUrl(url);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到，我的链接拼接方式可以直接把url转成uri，并获取参数，打开activity</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://wudiblog.com/2016/12/02/实现WebView中网页与App的Activity跳转/" title="实现WebView中网页与App的Activity跳转" target="_blank" rel="external">http://wudiblog.com/2016/12/02/实现WebView中网页与App的Activity跳转/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/demomath" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/demomath" target="_blank"><span class="text-dark">大太阳</span><small class="ml-1x">但行好事 莫问前程</small></a></h3>
+        <div>求打赏</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2017/01/03/SSH协议远程登录/" title="SSH协议远程登录"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2016/09/20/子网掩码讲解/" title="子网掩码讲解"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/demomath" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/5656466836" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: true,
+    notify: false,
+    appId: 'RW24VmjG0aMyH3kJvt0IWfzw-gzGzoHsz',
+    appKey: 'XG0vQGmIYAQoWsvrHYNGwME3',
+    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+    <script defer>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?315d861254917e4ff3f98632b44b28c3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+</body>
+</html>
