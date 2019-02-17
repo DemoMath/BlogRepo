@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>爱学习的大太阳</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://wudiblog.com/"/>
+  <updated>2019-02-02T08:30:36.896Z</updated>
+  <id>http://wudiblog.com/</id>
+  
+  <author>
+    <name>大太阳</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>18年公司年会</title>
+    <link href="http://wudiblog.com/2019/01/29/18%E5%B9%B4%E5%85%AC%E5%8F%B8%E5%B9%B4%E4%BC%9A/"/>
+    <id>http://wudiblog.com/2019/01/29/18年公司年会/</id>
+    <published>2019-01-29T08:27:03.000Z</published>
+    <updated>2019-02-02T08:30:36.896Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2019/01/29/18年公司年会/image1.png" alt="image1"></p><p>万年不中奖的体质决定了抽奖环节我只能干看着…</p><p><img src="/2019/01/29/18年公司年会/image2.png" alt="image2"></p><p>部门获奖，今年团队的努力得到了肯定，来年继续加油！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;/2019/01/29/18年公司年会/image1.png&quot; alt=&quot;image1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;万年不中奖的体质决定了抽奖环节我只能干看着…&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2019/01/29/18年公司年会/image2.png&quot; al
+      
+    
+    </summary>
+    
+      <category term="工作" scheme="http://wudiblog.com/categories/%E5%B7%A5%E4%BD%9C/"/>
+    
+    
+      <category term="工作" scheme="http://wudiblog.com/tags/%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「借鉴」基于多列卷积神经网络的单图像人群计数</title>
+    <link href="http://wudiblog.com/2019/01/10/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E5%88%97%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%8D%95%E5%9B%BE%E5%83%8F%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/"/>
+    <id>http://wudiblog.com/2019/01/10/基于多列卷积神经网络的单图像人群计数/</id>
+    <published>2019-01-10T08:39:55.000Z</published>
+    <updated>2019-02-02T08:57:17.112Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="核心实验"><a class="markdownIt-Anchor" href="#核心实验"></a> 核心实验</h4><ol><li><p>手动提取特征回归人数</p><p>a) 解决人群计数问题的传统的做法是手动设计并提取各种特征(Hand-craftedFeatures)，然后再基于这些特征训练一个线性或非线性函数来回归人头数。此类 算法大多三个步骤: 1)前景分割;2)特征提取;3)人数回归。接下来将对这三个步骤分别做介绍。</p><p>​i. 前景分割 前景(人群)分割的目的是将人群从图像中分割出来便于后面的特征提取， 分割性能的好坏直接关系的最终的计数精度，因此这是限制传统算法性能的一个 重要因素。常用的分割算法有:光流法(Optical Flow)、混合动态纹理(Mixture of Dynamic Textures)、小波分析(Wavelets) 等。</p><p>​ii. 特征提取 在完成前景分割之后，紧接着就是从分割得到的前景(人群)提取各种不同 的低层特征(Low-level Features)，常用的特征有:人群面积和周长(Area and Perimeter of Crowd Mask)、边的数量(Edge Count)、边的方向(Edge Orientation)、 纹理特征(Texture Features)、闵可夫斯基维度(Minkowski Dimension)等。</p><p>​iii. 人数回归 该步骤的目的是将上一步提取到的特征回归到图像中的人数，回归可以是简 单的线性回归，也可以用复杂的非线性回归。常用的回归方法有:线性回归(Linear Regression)、分段线性回归(Piece-wise Linear Regression)、脊回归(Ridge Regression)、高斯过程回归(Gaussian Process Regression)等。</p><p>b) 而对于单张图像而言没有运动信息，那么人群分割就显得非常困难，因此此 类算法一般直接从整张图像或者其子区域提取特征，然后再计算图像中人群数量。 通过查询网上资料，最终确定为利用 python 以及 python-opencv 简单地实现 算法，达到人脸检测、人头检测等基本目的。</p></li><li><p>深度卷积神经网络</p><p>基于深度学习的人群分析技术，不再采用人为定义特征的方式去判断目标是 否为“人”。通过使用大量数据训练模型，计算机可以自行学习并抽象出人群的 概念，并有效提取出针对人群分析有效的特征。这种针对人群整体的分析方法有 效克服了传统的基于人的个体分析方法所无法解决的大规模复杂场景的适应性 问题，并且人数统计精确度达到 95%以上。下图为针对人群密度估计的卷积神经 网络结构图:</p><p><img src="/2019/01/10/基于多列卷积神经网络的单图像人群计数/image1.jpeg" alt="image1"></p><p>目前人群密度估计的深度卷积神经网络有多种，包括 single-CNN、 multi-column CNN、multi-network CNN、multi-scale CNN、adapting CNN 等。 single-CNN 采用单列神经网络估计人群密度图，但是受限于获取图片多尺度信息 而难以达到更好地效果;multi-column CNN 采用多列卷积神经网络，每列网络使 用不同尺寸的卷积核，更充分地获取图片尺度信息并且达到良好效果，此外 multi-network CNN 采用深浅两列网络以解决空间分辨率问题，但是 Multi-column/network 有两个缺点:一点是需要预训练单列网络以达到全局优化， 为端到端训练增加复杂度，另一点是引入更多的参数，消耗更大的计算资源。而 multi-scale CNN 采用单列网络+多尺度卷积核的方式，下图为 MSCNN 的神经网 络结构图:</p><p><img src="/2019/01/10/基于多列卷积神经网络的单图像人群计数/image2.png" alt="image2"></p><p>其中每层网络分为 9<em>9、7</em>7、5<em>5、3</em>3 四种尺度卷积核，如下图所示:</p><p><img src="/2019/01/10/基于多列卷积神经网络的单图像人群计数/image3.png" alt="image3"></p><p>MSCNN 既克服图片尺度变化问题，又克服多元网络的参数过多、全局优化困难 等问题，故在本项目最终采用 MSCNN 作为本项目的核心算法。而 ACNN 充分 利用摄像头角度信息训练网络，但是由于精力有限没有进一步实践 ACNN 算法。</p></li></ol><h4 id="实际操作"><a class="markdownIt-Anchor" href="#实际操作"></a> 实际操作</h4><p>​语言使用python，并导入open-cv模块对图像进行处理以及MCNN和numpy等核心模块，数据集为从网络下载，并使用matlab为测试数据创建地面实况文件和创建训练和validataion集以及地面实况文件</p><p>​github: <a href="https://github.com/DemoMath/Density-detection" target="_blank" rel="noopener">https://github.com/DemoMath/Density-detection</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;核心实验&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#核心实验&quot;&gt;&lt;/a&gt; 核心实验&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;手动提取特征回归人数&lt;/p&gt;
+&lt;p&gt;a) 解决人群计数问题的传统的做法是手动设计并提取各种特征(Hand-cra
+      
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://wudiblog.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://wudiblog.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="北航" scheme="http://wudiblog.com/tags/%E5%8C%97%E8%88%AA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>考上北航了</title>
+    <link href="http://wudiblog.com/2018/09/15/%E8%80%83%E4%B8%8A%E5%8C%97%E8%88%AA%E4%BA%86/"/>
+    <id>http://wudiblog.com/2018/09/15/考上北航了/</id>
+    <published>2018-09-15T08:02:12.000Z</published>
+    <updated>2019-02-02T08:19:44.341Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2018/09/15/考上北航了/image1.png" alt="image1"></p><p>北航东门</p><p>​       将近一年的时间心心念念的愿望终于实现了，还记得大学离开学校的时候就对人说过，以后有机会我也要考研究生（虽然当时我的成绩差的不能再差…），最后还是下决心去尝试了，结果还不错</p><p><img src="/2018/09/15/考上北航了/image2.png" alt="image2"></p><p>校内的博物馆</p><p>小时候我可是有一个开飞机，开火箭的梦想啊</p><p>天道酬勤，继续加油吧！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;/2018/09/15/考上北航了/image1.png&quot; alt=&quot;image1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;北航东门&lt;/p&gt;
+&lt;p&gt;​       将近一年的时间心心念念的愿望终于实现了，还记得大学离开学校的时候就对人说过，以后有机会我也要考研究生（虽然当时我
+      
+    
+    </summary>
+    
+      <category term="北航" scheme="http://wudiblog.com/categories/%E5%8C%97%E8%88%AA/"/>
+    
+    
+      <category term="北航" scheme="http://wudiblog.com/tags/%E5%8C%97%E8%88%AA/"/>
+    
+      <category term="学习" scheme="http://wudiblog.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网安5000G资源</title>
+    <link href="http://wudiblog.com/2018/06/06/%E7%BD%91%E5%AE%895000G%E8%B5%84%E6%BA%90/"/>
+    <id>http://wudiblog.com/2018/06/06/网安5000G资源/</id>
+    <published>2018-06-05T17:13:07.000Z</published>
+    <updated>2019-02-02T07:19:56.483Z</updated>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th>名称</th><th>链接</th><th>密码</th></tr></thead><tbody><tr><td>一笔√带过入侵教程</td><td><a href="http://pan.baidu.com/s/1c2umQly" target="_blank" rel="noopener">点我查看资源</a></td><td>ypan</td></tr><tr><td>〔复仇者〕新手入门系列(7套)</td><td><a href="http://pan.baidu.com/s/1colrqu" target="_blank" rel="noopener">点我查看资源</a></td><td>g1tb</td></tr><tr><td>2015cracer入侵入门到精通视频教程</td><td><a href="https://pan.baidu.com/s/1kUMj6IF" target="_blank" rel="noopener">点我查看资源</a></td><td>trf3</td></tr><tr><td>菜鸟基础(10套)</td><td><a href="https://pan.baidu.com/s/1i50iV5b" target="_blank" rel="noopener">点我查看资源</a></td><td>2zq6</td></tr><tr><td></td><td></td><td></td></tr><tr><td>计算机网络</td><td><a href="http://pan.baidu.com/s/1qY09XKw" target="_blank" rel="noopener">点我查看资源</a></td><td>v145</td></tr><tr><td>计算机网络视频教程</td><td><a href="https://pan.baidu.com/s/1mi4fUD6" target="_blank" rel="noopener">点我查看资源</a></td><td>3btd</td></tr><tr><td>TCP_IP协议基础视频教程</td><td><a href="http://pan.baidu.com/s/1bz0tFS" target="_blank" rel="noopener">点我查看资源</a></td><td>ta7z</td></tr><tr><td>IP地址子网划分终极降解视频讲解（17讲）</td><td><a href="https://pan.baidu.com/s/1hrOXdIW" target="_blank" rel="noopener">点我查看资源</a></td><td>tfj4</td></tr><tr><td>互联网络工程技术</td><td><a href="https://pan.baidu.com/s/1kV8SkYV" target="_blank" rel="noopener">点我查看资源</a></td><td>ns1t</td></tr><tr><td>计算机网络原理精讲视频教程</td><td><a href="https://pan.baidu.com/s/1bFFRAI" target="_blank" rel="noopener">点我查看资源</a></td><td>a9re</td></tr><tr><td>运维视频教程（14套）</td><td><a href="https://pan.baidu.com/s/1i4L7xat" target="_blank" rel="noopener">点我查看资源</a></td><td>6qfu</td></tr><tr><td>宽带网络交换技术</td><td><a href="https://pan.baidu.com/s/1slb6fVn" target="_blank" rel="noopener">点我查看资源</a></td><td>2mbs</td></tr><tr><td>google黑客 系列</td><td><a href="https://pan.baidu.com/s/1pLjbvi7" target="_blank" rel="noopener">点我查看资源</a></td><td>rlzh</td></tr><tr><td>谷歌黑客语法入门视频教程</td><td><a href="https://pan.baidu.com/s/1nvGVE2H" target="_blank" rel="noopener">点我查看资源</a></td><td>uvbd</td></tr><tr><td>Kali Linux——入侵渗透（2套）</td><td><a href="http://pan.baidu.com/s/1jIyKz4a" target="_blank" rel="noopener">点我查看资源</a></td><td>3xwn</td></tr><tr><td></td><td></td><td></td></tr><tr><td>xss技术大全</td><td><a href="https://pan.baidu.com/s/1qX9N0Zi" target="_blank" rel="noopener">点我查看资源</a></td><td>5uzr</td></tr><tr><td>XSS教程系列（2套）</td><td><a href="https://pan.baidu.com/s/1jHGL9cE" target="_blank" rel="noopener">点我查看资源</a></td><td>gcrr</td></tr><tr><td>病毒分析视频教程</td><td><a href="https://pan.baidu.com/s/1kUOlh6R" target="_blank" rel="noopener">点我查看资源</a></td><td>3lf0</td></tr><tr><td>代码审计pdf</td><td><a href="http://pan.baidu.com/s/1hsAtOLQ" target="_blank" rel="noopener">点我查看资源</a></td><td>yz4c</td></tr><tr><td>暗月2014最新PHP代码审计系列教程</td><td><a href="https://pan.baidu.com/s/1jHTCMhC" target="_blank" rel="noopener">点我查看资源</a></td><td>li4h</td></tr><tr><td>钓鱼站点开发系列教程</td><td><a href="https://pan.baidu.com/s/1qYxSFs4" target="_blank" rel="noopener">点我查看资源</a></td><td>5su8</td></tr><tr><td>幽灵逆向反汇编逆向教程12课</td><td><a href="https://pan.baidu.com/s/1nv2I5M5" target="_blank" rel="noopener">点我查看资源</a></td><td>twfh</td></tr><tr><td>Burpsuite视频教程_2014年</td><td><a href="http://pan.baidu.com/s/1jH8D5iQ" target="_blank" rel="noopener">点我查看资源</a></td><td>9bwk</td></tr><tr><td>Burp软件教程</td><td><a href="http://pan.baidu.com/s/1hrZfY8s" target="_blank" rel="noopener">点我查看资源</a></td><td>y0jl</td></tr><tr><td>神器们的使用教程（8套）</td><td><a href="http://pan.baidu.com/s/1bpr7c9x" target="_blank" rel="noopener">点我查看资源</a></td><td>ie3g</td></tr><tr><td>靶机搭建（7套）</td><td><a href="http://pan.baidu.com/s/1slVawXn" target="_blank" rel="noopener">点我查看资源</a></td><td>ejfo</td></tr><tr><td>BackTrack渗透16课</td><td><a href="https://pan.baidu.com/s/1ckNJMu" target="_blank" rel="noopener">点我查看资源</a></td><td>s5nv</td></tr><tr><td>BT5使用课程</td><td><a href="https://pan.baidu.com/s/1nvTMBRb" target="_blank" rel="noopener">点我查看资源</a></td><td>cu89</td></tr><tr><td>burpsuite 系列视频教程</td><td><a href="https://pan.baidu.com/s/1hsdjZ4w" target="_blank" rel="noopener">点我查看资源</a></td><td>pjpr</td></tr><tr><td>Metasploit教程大全</td><td><a href="https://pan.baidu.com/s/1qYxm2pY" target="_blank" rel="noopener">点我查看资源</a></td><td>q9fk</td></tr><tr><td>webshell提权教程</td><td><a href="https://pan.baidu.com/s/1qYpKXOw" target="_blank" rel="noopener">点我查看资源</a></td><td>8ttn</td></tr><tr><td>菜鸟腾飞安BackTrack渗透-视频教程</td><td><a href="https://pan.baidu.com/s/1pKDTn1T" target="_blank" rel="noopener">点我查看资源</a></td><td>4ktc</td></tr><tr><td>angelc0de原创burpsuite系列VIP培训教程</td><td><a href="https://pan.baidu.com/s/1i56Ul61" target="_blank" rel="noopener">点我查看资源</a></td><td>o6sj</td></tr><tr><td>慕课网—前端开发工具SublimeTex实用技巧</td><td><a href="https://pan.baidu.com/s/1kVxwS2V" target="_blank" rel="noopener">点我查看资源</a></td><td>goz7</td></tr><tr><td>用工具快速建站扒站教程</td><td><a href="https://pan.baidu.com/s/1hspv6dA" target="_blank" rel="noopener">点我查看资源</a></td><td>kd63</td></tr><tr><td>常涛的教程（5套）</td><td><a href="https://pan.baidu.com/s/1pL2E0Yn" target="_blank" rel="noopener">点我查看资源</a></td><td>3jyh</td></tr><tr><td>Backtrack工具教程</td><td><a href="https://pan.baidu.com/s/1eRF7MZw" target="_blank" rel="noopener">点我查看资源</a></td><td>aw4g</td></tr><tr><td>MFC软件使用教程</td><td><a href="https://pan.baidu.com/s/1c2KBPhI" target="_blank" rel="noopener">点我查看资源</a></td><td>i0nn</td></tr><tr><td>黑客工具MSF系列培训教程</td><td><a href="https://pan.baidu.com/s/1sl7ufJf" target="_blank" rel="noopener">点我查看资源</a></td><td>rxbd</td></tr><tr><td>靶机环境</td><td><a href="https://pan.baidu.com/s/1o8AOdAE" target="_blank" rel="noopener">点我查看资源</a></td><td>sqya</td></tr><tr><td>戈雅渗透论坛脚本安全系列教程+工具包</td><td><a href="https://pan.baidu.com/s/1i48GcJF" target="_blank" rel="noopener">点我查看资源</a></td><td>4gol</td></tr><tr><td>〔复仇者〕服务器维攻防(3套)</td><td><a href="http://pan.baidu.com/s/1bYCl6u" target="_blank" rel="noopener">点我查看资源</a></td><td>gkjk</td></tr><tr><td>网络攻防（8套）</td><td><a href="https://pan.baidu.com/s/1jIlnNwy" target="_blank" rel="noopener">点我查看资源</a></td><td>rd6i</td></tr><tr><td>商城论坛建站（3套）</td><td><a href="https://pan.baidu.com/s/1mhZDQA0" target="_blank" rel="noopener">点我查看资源</a></td><td>2b9r</td></tr><tr><td></td><td></td><td></td></tr><tr><td>脚本相关系列</td><td><a href="https://pan.baidu.com/s/1hrKTgP2" target="_blank" rel="noopener">点我查看资源</a></td><td>uxdi</td></tr><tr><td></td><td></td><td></td></tr><tr><td>中国黑客组织脚本入侵6课</td><td><a href="https://pan.baidu.com/s/1eRQxaE2" target="_blank" rel="noopener">点我查看资源</a></td><td>47qk</td></tr><tr><td>『逆向免杀』（39套）</td><td><a href="https://pan.baidu.com/s/1o8tmNkm" target="_blank" rel="noopener">点我查看资源</a></td><td>wqrg</td></tr><tr><td>免杀教程大合集（4套）</td><td><a href="https://pan.baidu.com/s/1bXqAHS" target="_blank" rel="noopener">点我查看资源</a></td><td>y1bt</td></tr><tr><td>日月神教源码免杀第一季</td><td><a href="https://pan.baidu.com/s/1bp3cESJ" target="_blank" rel="noopener">点我查看资源</a></td><td>su0r</td></tr><tr><td>逆向免杀（48套）</td><td><a href="https://pan.baidu.com/s/1kVlRCLT" target="_blank" rel="noopener">点我查看资源</a></td><td>v0my</td></tr><tr><td>上兴木马软件+教程</td><td><a href="https://pan.baidu.com/s/1miq8ISC" target="_blank" rel="noopener">点我查看资源</a></td><td>tm9s</td></tr><tr><td>抓鸡远控视频+软件</td><td><a href="http://pan.baidu.com/s/1o7DVqT8" target="_blank" rel="noopener">点我查看资源</a></td><td>f8wb</td></tr><tr><td>刺客安全网抓鸡VIP课程</td><td><a href="https://pan.baidu.com/s/1c2sRnhu" target="_blank" rel="noopener">点我查看资源</a></td><td>07h4</td></tr><tr><td>2014最新实战3306端口抓鸡</td><td><a href="https://pan.baidu.com/s/1jHCbMEq" target="_blank" rel="noopener">点我查看资源</a></td><td>4qnn</td></tr><tr><td>完全精通DDOS软件的配置和使用</td><td><a href="https://pan.baidu.com/s/1hrXKEY4" target="_blank" rel="noopener">点我查看资源</a></td><td>qi72</td></tr><tr><td>逆向分析（5套）</td><td><a href="https://pan.baidu.com/s/1c1TPgha" target="_blank" rel="noopener">点我查看资源</a></td><td>pzwu</td></tr><tr><td>破解软件教程（10套）</td><td><a href="http://pan.baidu.com/s/1nu87xhB" target="_blank" rel="noopener">点我查看资源</a></td><td>5ysm</td></tr><tr><td>『脱壳破解』（68套）</td><td><a href="https://pan.baidu.com/s/1bNhlLG" target="_blank" rel="noopener">点我查看资源</a></td><td>zi30</td></tr><tr><td>2012最新天狼星加密视频破解教程（附工具）共15个视频</td><td><a href="https://pan.baidu.com/s/1jIBCe6y" target="_blank" rel="noopener">点我查看资源</a></td><td>iicy</td></tr><tr><td>脱壳破解（76套）</td><td><a href="https://pan.baidu.com/s/1hrTaT4C" target="_blank" rel="noopener">点我查看资源</a></td><td>eh41</td></tr><tr><td>加密破解（3套）</td><td><a href="https://pan.baidu.com/s/1bLfGZW" target="_blank" rel="noopener">点我查看资源</a></td><td>8udp</td></tr><tr><td>90大流5分钟教会你内网劫持</td><td><a href="http://pan.baidu.com/s/1pLzqf27" target="_blank" rel="noopener">点我查看资源</a></td><td>j7b4</td></tr><tr><td>渗透教程菜鸟也能变大神</td><td><a href="http://pan.baidu.com/s/1eRU0smu" target="_blank" rel="noopener">点我查看资源</a></td><td>ammw</td></tr><tr><td>〔复仇者〕高级渗透教程（10套）</td><td><a href="http://pan.baidu.com/s/1misABpQ" target="_blank" rel="noopener">点我查看资源</a></td><td>ika7</td></tr><tr><td>〔复仇者〕渗透整套教程（59套）</td><td><a href="http://pan.baidu.com/s/1kUXEau7" target="_blank" rel="noopener">点我查看资源</a></td><td>iqw2</td></tr><tr><td>〔复仇者〕杂七杂八教程（40套）</td><td><a href="http://pan.baidu.com/s/1dEZme9F" target="_blank" rel="noopener">点我查看资源</a></td><td>uk33</td></tr><tr><td>杀魂道长渗透教程</td><td><a href="http://pan.baidu.com/s/1jIM0R22" target="_blank" rel="noopener">点我查看资源</a></td><td>u9cr</td></tr><tr><td>【9.18】黑客学院</td><td><a href="http://pan.baidu.com/s/1cMHsgm" target="_blank" rel="noopener">点我查看资源</a></td><td>hdon</td></tr><tr><td>渗透</td><td><a href="https://pan.baidu.com/s/1skUebHb" target="_blank" rel="noopener">点我查看资源</a></td><td>bajh</td></tr><tr><td>多种网站入侵方法（10套）</td><td><a href="http://pan.baidu.com/s/1gfg9Fkn" target="_blank" rel="noopener">点我查看资源</a></td><td>5uz7</td></tr><tr><td>Web渗透拿站</td><td><a href="http://pan.baidu.com/s/1geY2jLp" target="_blank" rel="noopener">点我查看资源</a></td><td>oqil</td></tr><tr><td>HACK80原创教程</td><td><a href="https://pan.baidu.com/s/1kVawcXx" target="_blank" rel="noopener">点我查看资源</a></td><td>4vbi</td></tr><tr><td>Lieker渗透系列</td><td><a href="https://pan.baidu.com/s/1qY9xIva" target="_blank" rel="noopener">点我查看资源</a></td><td>nxz0</td></tr><tr><td>安全渗透测试实践初级课程</td><td><a href="https://pan.baidu.com/s/1bpJXCzd" target="_blank" rel="noopener">点我查看资源</a></td><td>i15z</td></tr><tr><td>暗月渗透教程第一季全套67节</td><td><a href="https://pan.baidu.com/s/1c2kdJg8" target="_blank" rel="noopener">点我查看资源</a></td><td>znkc</td></tr><tr><td>滴水网络第一期初级逆向培训视频[无KEY 完整版]</td><td><a href="https://pan.baidu.com/s/1boAnVen" target="_blank" rel="noopener">点我查看资源</a></td><td>m42s</td></tr><tr><td>黑客风云vip教程</td><td><a href="https://pan.baidu.com/s/1eS7Gqp8" target="_blank" rel="noopener">点我查看资源</a></td><td>2cae</td></tr><tr><td>黑客组织pkav培训文件</td><td><a href="https://pan.baidu.com/s/1i4AbGLR" target="_blank" rel="noopener">点我查看资源</a></td><td>jl46</td></tr><tr><td>社工系列更新</td><td><a href="http://pan.baidu.com/s/1kVGtWGJ" target="_blank" rel="noopener">点我查看资源</a></td><td>0h4z</td></tr><tr><td>渗透测试</td><td><a href="https://pan.baidu.com/s/1jICXLg6" target="_blank" rel="noopener">点我查看资源</a></td><td>ajl4</td></tr><tr><td>渗透测试工程师</td><td><a href="https://pan.baidu.com/s/1i5JfyEp" target="_blank" rel="noopener">点我查看资源</a></td><td>a06t</td></tr><tr><td>渗透资料大全</td><td><a href="https://pan.baidu.com/s/1slaPNcT" target="_blank" rel="noopener">点我查看资源</a></td><td>bcia</td></tr><tr><td>辛巴的教程</td><td><a href="https://pan.baidu.com/s/1dENHcTb" target="_blank" rel="noopener">点我查看资源</a></td><td>2ifv</td></tr><tr><td>暗月信息安全论坛YY语音视频公开（111分钟）</td><td><a href="https://pan.baidu.com/s/1dFt5inB" target="_blank" rel="noopener">点我查看资源</a></td><td>uyee</td></tr><tr><td>饭客网络渗透第一部分</td><td><a href="https://pan.baidu.com/s/1eSOBnrW" target="_blank" rel="noopener">点我查看资源</a></td><td>czcw</td></tr><tr><td>给日月神教做的20课教学视频</td><td><a href="https://pan.baidu.com/s/1hrIRpkS" target="_blank" rel="noopener">点我查看资源</a></td><td>objb</td></tr><tr><td>日月神教高级渗透课程第一季</td><td><a href="https://pan.baidu.com/s/1eRTeFiM" target="_blank" rel="noopener">点我查看资源</a></td><td>0n7n</td></tr><tr><td>日月神教入侵教程(21-36)</td><td><a href="https://pan.baidu.com/s/1hssJcFE" target="_blank" rel="noopener">点我查看资源</a></td><td>3ih5</td></tr><tr><td>入侵资料</td><td><a href="https://pan.baidu.com/s/1nvKZjfV" target="_blank" rel="noopener">点我查看资源</a></td><td>jm45</td></tr><tr><td>r00ts小组培训教程</td><td><a href="https://pan.baidu.com/s/1c7OAhK" target="_blank" rel="noopener">点我查看资源</a></td><td>pa7c</td></tr><tr><td>猫客渗透教程</td><td><a href="https://pan.baidu.com/s/1eSHjP5K" target="_blank" rel="noopener">点我查看资源</a></td><td>gvsw</td></tr><tr><td>日月神教渗透之旅课程</td><td><a href="https://pan.baidu.com/s/1o8gvISq" target="_blank" rel="noopener">点我查看资源</a></td><td>zf08</td></tr><tr><td>武林黑客技术论坛远程普级入侵渗透教程</td><td><a href="https://pan.baidu.com/s/1mhZEnBM" target="_blank" rel="noopener">点我查看资源</a></td><td>7s8j</td></tr><tr><td>YES黑客联盟小艾脚本VIP系列教程</td><td><a href="https://pan.baidu.com/s/1o8q5iuI" target="_blank" rel="noopener">点我查看资源</a></td><td>zao3</td></tr><tr><td>【猫客工作室】渗透资料大全</td><td><a href="https://pan.baidu.com/s/1o8lf4D0" target="_blank" rel="noopener">点我查看资源</a></td><td>yzwh</td></tr><tr><td>牧民VIP脚本渗透课程</td><td><a href="https://pan.baidu.com/s/1geEjMG7" target="_blank" rel="noopener">点我查看资源</a></td><td>eifl</td></tr><tr><td>G2soS渗透教程</td><td><a href="https://pan.baidu.com/s/1dFFQadj" target="_blank" rel="noopener">点我查看资源</a></td><td>7shv</td></tr><tr><td>一期加密视频的提取教程+工具</td><td><a href="https://pan.baidu.com/s/1cqTD1c" target="_blank" rel="noopener">点我查看资源</a></td><td>ylx3</td></tr><tr><td>法客论坛系列教程（4套）</td><td><a href="https://pan.baidu.com/s/1o7LxgJC" target="_blank" rel="noopener">点我查看资源</a></td><td>8wp5</td></tr><tr><td>饭客网黑客系列教程（13套）</td><td><a href="https://pan.baidu.com/s/1o7FX2no" target="_blank" rel="noopener">点我查看资源</a></td><td>ief6</td></tr><tr><td>黑猫论坛系列教程（3套）</td><td><a href="https://pan.baidu.com/s/1qYs3ctQ" target="_blank" rel="noopener">点我查看资源</a></td><td>ha6i</td></tr><tr><td>夜猫论坛系列教程（3套）</td><td><a href="https://pan.baidu.com/s/1gf7E9UF" target="_blank" rel="noopener">点我查看资源</a></td><td>6ofs</td></tr><tr><td>网络学院完整VIP系列教程（24套）</td><td><a href="https://pan.baidu.com/s/1c1HDQ1a" target="_blank" rel="noopener">点我查看资源</a></td><td>56ka</td></tr><tr><td>外挂编程系列（20套）</td><td><a href="https://pan.baidu.com/s/1bpr7JnL" target="_blank" rel="noopener">点我查看资源</a></td><td>81bi</td></tr><tr><td>华夏联盟系列教程（2套）</td><td><a href="https://pan.baidu.com/s/1i4WwCWt" target="_blank" rel="noopener">点我查看资源</a></td><td>mglq</td></tr><tr><td>华中红客系列教程（29套）</td><td><a href="https://pan.baidu.com/s/1gf6s8xl" target="_blank" rel="noopener">点我查看资源</a></td><td>b1pe</td></tr><tr><td>入侵教程系列（33套）</td><td><a href="https://pan.baidu.com/s/1dFbo6ch" target="_blank" rel="noopener">点我查看资源</a></td><td>mvi3</td></tr><tr><td>若水论坛系列教程（4套）</td><td><a href="https://pan.baidu.com/s/1qYcnZ9E" target="_blank" rel="noopener">点我查看资源</a></td><td>iagi</td></tr><tr><td>渗透视频教程18集</td><td><a href="https://pan.baidu.com/s/1nvB5ZGP" target="_blank" rel="noopener">点我查看资源</a></td><td>8xzx</td></tr><tr><td>天草系列教程（7套）</td><td><a href="https://pan.baidu.com/s/1eR8gmPW" target="_blank" rel="noopener">点我查看资源</a></td><td>4l11</td></tr><tr><td>天都吧系列教程（5套）</td><td><a href="https://pan.baidu.com/s/1eRXiJ1S" target="_blank" rel="noopener">点我查看资源</a></td><td>kf07</td></tr><tr><td>中国黑客组织系列教程（12套）</td><td><a href="https://pan.baidu.com/s/1o7YUt3G" target="_blank" rel="noopener">点我查看资源</a></td><td>jdup</td></tr><tr><td>中华隐士系列教程（4套）</td><td><a href="https://pan.baidu.com/s/1bp3cW2r" target="_blank" rel="noopener">点我查看资源</a></td><td>ibjf</td></tr><tr><td>暗组花指令系列教程1-4课</td><td><a href="https://pan.baidu.com/s/1miRhfAC" target="_blank" rel="noopener">点我查看资源</a></td><td>jzrz</td></tr><tr><td>黑客基地VIP封包视频教程</td><td><a href="https://pan.baidu.com/s/1pK7hVWR" target="_blank" rel="noopener">点我查看资源</a></td><td>u24g</td></tr><tr><td>黑客命令与典型应用 视频教程</td><td><a href="https://pan.baidu.com/s/1jHSWMHo" target="_blank" rel="noopener">点我查看资源</a></td><td>hx3k</td></tr><tr><td></td><td></td><td></td></tr><tr><td>扫描探测（10套）</td><td><a href="https://pan.baidu.com/s/1eSC0soE" target="_blank" rel="noopener">点我查看资源</a></td><td>hq6e</td></tr><tr><td>扫描教程大全.</td><td><a href="https://pan.baidu.com/s/1pLAfIbx" target="_blank" rel="noopener">点我查看资源</a></td><td>it83</td></tr><tr><td>〔复仇者〕大牛经验笔录</td><td><a href="http://pan.baidu.com/s/1skBNaep" target="_blank" rel="noopener">点我查看资源</a></td><td>tcbk</td></tr><tr><td>T4ab技术小组2013入侵日站系列教程</td><td><a href="https://pan.baidu.com/s/1kVIvvHt" target="_blank" rel="noopener">点我查看资源</a></td><td>tn2u</td></tr><tr><td></td><td></td><td></td></tr><tr><td>实战小视频</td><td><a href="https://pan.baidu.com/s/1c152ntA" target="_blank" rel="noopener">点我查看资源</a></td><td>0tiw</td></tr><tr><td>2013暑假全部实战教程</td><td><a href="https://pan.baidu.com/s/1boVmUOR" target="_blank" rel="noopener">点我查看资源</a></td><td>ieaj</td></tr><tr><td>无线电安全</td><td><a href="https://pan.baidu.com/s/1jIjl6Vs" target="_blank" rel="noopener">点我查看资源</a></td><td>inh9</td></tr><tr><td>安卓逆向基础教程全套</td><td><a href="https://pan.baidu.com/s/1gfFfIE3" target="_blank" rel="noopener">点我查看资源</a></td><td>o8bn</td></tr><tr><td>WirelessHacking3无线网络黑客攻防系列教程</td><td><a href="https://pan.baidu.com/s/1slOoKJ7" target="_blank" rel="noopener">点我查看资源</a></td><td>cjzc</td></tr><tr><td>免流量软件+教程</td><td><a href="https://pan.baidu.com/s/1o8RIF4u" target="_blank" rel="noopener">点我查看资源</a></td><td>5vb6</td></tr><tr><td>〔复仇者〕部分拿shell集</td><td><a href="http://pan.baidu.com/s/1i56nTy9" target="_blank" rel="noopener">点我查看资源</a></td><td>io0t</td></tr><tr><td>提权系列</td><td><a href="http://pan.baidu.com/s/1qX9hIby" target="_blank" rel="noopener">点我查看资源</a></td><td>a6jw</td></tr><tr><td>提权教程（10套）</td><td><a href="http://pan.baidu.com/s/1c20tgNA" target="_blank" rel="noopener">点我查看资源</a></td><td>2vpt</td></tr><tr><td>流年VIP教程网页游戏辅助软件制作系列课程全5部分（附工具）</td><td><a href="https://pan.baidu.com/s/1bpsn6hT" target="_blank" rel="noopener">点我查看资源</a></td><td>fn4a</td></tr><tr><td>网吧视频教程（8套）</td><td><a href="https://pan.baidu.com/s/1qYs2ZMG" target="_blank" rel="noopener">点我查看资源</a></td><td>qfs5</td></tr><tr><td>超级网络管理员培训教程</td><td><a href="https://pan.baidu.com/s/1o892kqe" target="_blank" rel="noopener">点我查看资源</a></td><td>rjeb</td></tr><tr><td>综合布线</td><td><a href="https://pan.baidu.com/s/1dE2cIXV" target="_blank" rel="noopener">点我查看资源</a></td><td>u6zm</td></tr><tr><td>网络管理员教程（25套）</td><td><a href="http://pan.baidu.com/s/1i48Gmyh" target="_blank" rel="noopener">点我查看资源</a></td><td>1p4i</td></tr><tr><td>U盘启动盘制作及清除XP登陆密码</td><td><a href="http://pan.baidu.com/s/1nuSQhQD" target="_blank" rel="noopener">点我查看资源</a></td><td>x3g4</td></tr><tr><td>入侵网吧主机任意加钱教程</td><td><a href="http://pan.baidu.com/s/1kUJ0LHP" target="_blank" rel="noopener">点我查看资源</a></td><td>ruzm</td></tr><tr><td>缓冲区溢出教程</td><td><a href="https://pan.baidu.com/s/1mhCD16C" target="_blank" rel="noopener">点我查看资源</a></td><td>fs7p</td></tr><tr><td>暗组缓冲区溢出教程</td><td><a href="https://pan.baidu.com/s/1mhMgRo8" target="_blank" rel="noopener">点我查看资源</a></td><td>8agq</td></tr><tr><td>计算机结构（11套）</td><td><a href="http://pan.baidu.com/s/1dFuQSrJ" target="_blank" rel="noopener">点我查看资源</a></td><td>0bn4</td></tr><tr><td>棉猴AsyncSelect模型QQ程序系列教程</td><td><a href="https://pan.baidu.com/s/1slN9hzJ" target="_blank" rel="noopener">点我查看资源</a></td><td>u5kd</td></tr><tr><td>无本搭建在线版qq机器人网站</td><td><a href="https://pan.baidu.com/s/1dFFkjdv" target="_blank" rel="noopener">点我查看资源</a></td><td>cx35</td></tr><tr><td>sqlmap注入</td><td><a href="https://pan.baidu.com/s/1ge8dVTx" target="_blank" rel="noopener">点我查看资源</a></td><td>ps75</td></tr><tr><td>SQL注入系列教程（6套）</td><td><a href="https://pan.baidu.com/s/1slw45TN" target="_blank" rel="noopener">点我查看资源</a></td><td>rin9</td></tr><tr><td>搜索型注入</td><td><a href="https://pan.baidu.com/s/1c2yWQdy" target="_blank" rel="noopener">点我查看资源</a></td><td>2887</td></tr><tr><td>0day系列大全（8套）</td><td><a href="https://pan.baidu.com/s/1gf5Cvnl" target="_blank" rel="noopener">点我查看资源</a></td><td>nbbb</td></tr><tr><td>0day视频教程（3套）</td><td><a href="https://pan.baidu.com/s/1pKPyQ4V" target="_blank" rel="noopener">点我查看资源</a></td><td>iifn</td></tr><tr><td>中安网培黑客入门视频教程</td><td><a href="http://pan.baidu.com/s/1qYGjcIg" target="_blank" rel="noopener">点我查看资源</a></td><td>j8wo</td></tr><tr><td>黑客攻防技术见招拆招视频教程</td><td><a href="http://pan.baidu.com/s/1cFVCwm" target="_blank" rel="noopener">点我查看资源</a></td><td>toea</td></tr><tr><td>黑客攻防入门与进阶教程</td><td><a href="https://pan.baidu.com/s/1jHCH7tc" target="_blank" rel="noopener">点我查看资源</a></td><td>yevi</td></tr><tr><td>WiFi密码破解教程和工具</td><td><a href="https://pan.baidu.com/s/1skI8CsX" target="_blank" rel="noopener">点我查看资源</a></td><td>n6qf</td></tr><tr><td>WiFi破解新手入门</td><td><a href="http://pan.baidu.com/s/1o7OexRG" target="_blank" rel="noopener">点我查看资源</a></td><td>icjq</td></tr><tr><td>BT5无线蹭网利器光盘版+全套工具+视频教程</td><td><a href="https://pan.baidu.com/s/1mhUU9j6" target="_blank" rel="noopener">点我查看资源</a></td><td>9xcx</td></tr><tr><td>WIFI无线密码破解视频教程+工具制作教程</td><td><a href="https://pan.baidu.com/s/1c12KAQW" target="_blank" rel="noopener">点我查看资源</a></td><td>01tz</td></tr><tr><td>WIFI无线破解视频教程软件全套资料</td><td><a href="https://pan.baidu.com/s/1qYeVNNA" target="_blank" rel="noopener">点我查看资源</a></td><td>yf8g</td></tr><tr><td>【U盘启动】WPA2无线破解软件+视频教程</td><td><a href="https://pan.baidu.com/s/1bEua0Q" target="_blank" rel="noopener">点我查看资源</a></td><td>ac6i</td></tr><tr><td>价值588无线破解视频教程</td><td><a href="https://pan.baidu.com/s/1qY0A7WK" target="_blank" rel="noopener">点我查看资源</a></td><td>t0dr</td></tr><tr><td>WPA破解教程(BT系列)</td><td><a href="https://pan.baidu.com/s/1hsa238C" target="_blank" rel="noopener">点我查看资源</a></td><td>4eel</td></tr><tr><td>无线网络安全技术教程</td><td><a href="https://pan.baidu.com/s/1qYjFDIc" target="_blank" rel="noopener">点我查看资源</a></td><td>dd85</td></tr><tr><td>ASP视频教程（3套）</td><td><a href="http://pan.baidu.com/s/1eS0ouOE" target="_blank" rel="noopener">点我查看资源</a></td><td>5p4b</td></tr><tr><td>C#_ASP.NET视频教程（99套）</td><td><a href="https://pan.baidu.com/s/1eS6zbGI" target="_blank" rel="noopener">点我查看资源</a></td><td>hr64</td></tr><tr><td></td><td></td><td></td></tr><tr><td>html视频教程（10套）</td><td><a href="http://pan.baidu.com/s/1skHSA3V" target="_blank" rel="noopener">点我查看资源</a></td><td>yf45</td></tr><tr><td>javascript视频教程（6套）</td><td><a href="http://pan.baidu.com/s/1jIFFp2I" target="_blank" rel="noopener">点我查看资源</a></td><td>08gb</td></tr><tr><td>JAVA视频教程（45套）</td><td><a href="http://note.youdao.com/noteshare?id=0f70e4ae3b868fd817f382a8a1b922e9" target="_blank" rel="noopener">点我查看资源</a></td><td>无</td></tr><tr><td></td><td></td><td></td></tr><tr><td>SQL视频教程（3套）</td><td><a href="http://pan.baidu.com/s/1kVGZgsJ" target="_blank" rel="noopener">点我查看资源</a></td><td>5ksv</td></tr><tr><td>SQL视频教程（6套）</td><td><a href="http://pan.baidu.com/s/1jHJ2Nqu" target="_blank" rel="noopener">点我查看资源</a></td><td>uqhj</td></tr><tr><td>微信开发视频教程（3套）</td><td><a href="http://pan.baidu.com/s/1i4QWycH" target="_blank" rel="noopener">点我查看资源</a></td><td>c9j1</td></tr><tr><td>易语言视频教程（24套）</td><td><a href="http://pan.baidu.com/s/1kUUWcsR" target="_blank" rel="noopener">点我查看资源</a></td><td>2af7</td></tr><tr><td>C语言视频教程（110套）</td><td><a href="http://pan.baidu.com/s/1nu7q1rN" target="_blank" rel="noopener">点我查看资源</a></td><td>5csn</td></tr><tr><td>delphi视频教程</td><td><a href="http://pan.baidu.com/s/1slqyHzv" target="_blank" rel="noopener">点我查看资源</a></td><td>mhog</td></tr><tr><td>iphone开发视频教程（56套）</td><td><a href="http://pan.baidu.com/s/1gf7EakV" target="_blank" rel="noopener">点我查看资源</a></td><td>qznh</td></tr><tr><td>jsp视频教程</td><td><a href="http://pan.baidu.com/s/1sl08cGl" target="_blank" rel="noopener">点我查看资源</a></td><td>raml</td></tr><tr><td>python视频教程（19套）</td><td><a href="http://pan.baidu.com/s/1pLpMNAN" target="_blank" rel="noopener">点我查看资源</a></td><td>rb4v</td></tr><tr><td>VB视频教程（3套）</td><td><a href="http://pan.baidu.com/s/1c2y8wu" target="_blank" rel="noopener">点我查看资源</a></td><td>3uzq</td></tr><tr><td>Android编程（40套）</td><td><a href="http://note.youdao.com/noteshare?id=745754b1fffb094e1dae8a17a90a7a77" target="_blank" rel="noopener">点我查看资源</a></td><td></td></tr><tr><td>高级Windows程序设计</td><td><a href="http://pan.baidu.com/s/1nvwC1Ih" target="_blank" rel="noopener">点我查看资源</a></td><td>imr1</td></tr><tr><td>汇编教程（7套）</td><td><a href="http://pan.baidu.com/s/1kUYubfL" target="_blank" rel="noopener">点我查看资源</a></td><td>mh4l</td></tr><tr><td>Dos教程</td><td><a href="http://pan.baidu.com/s/1eR5xPzO" target="_blank" rel="noopener">点我查看资源</a></td><td>v183</td></tr><tr><td>编程回忆录（7套）</td><td><a href="http://pan.baidu.com/s/1gfhp4Mv" target="_blank" rel="noopener">点我查看资源</a></td><td>vg14</td></tr><tr><td>Web前端开发（15套）</td><td><a href="http://pan.baidu.com/s/1i5nrcvb" target="_blank" rel="noopener">点我查看资源</a></td><td>tzb2</td></tr><tr><td>linux教程大全（8套）</td><td><a href="https://pan.baidu.com/s/1hsntxzu" target="_blank" rel="noopener">点我查看资源</a></td><td>5yzp</td></tr><tr><td>零基础入门学习汇编语言_78_小甲鱼</td><td><a href="https://pan.baidu.com/s/1jInpt6u" target="_blank" rel="noopener">点我查看资源</a></td><td>1rmx</td></tr><tr><td>[暗月论坛收集]python灰帽编程</td><td><a href="https://pan.baidu.com/s/1mhBX2ju" target="_blank" rel="noopener">点我查看资源</a></td><td>oobp</td></tr><tr><td>MySQL入门到全面精通视频教程 全40讲</td><td><a href="https://pan.baidu.com/s/1qYfB9j2" target="_blank" rel="noopener">点我查看资源</a></td><td>myl9</td></tr><tr><td>PHP100系列教程</td><td><a href="https://pan.baidu.com/s/1miuCXWO" target="_blank" rel="noopener">点我查看资源</a></td><td>g9rr</td></tr><tr><td>SQL SEVER05 08 12教程（3套）</td><td><a href="https://pan.baidu.com/s/1bpDSjXP" target="_blank" rel="noopener">点我查看资源</a></td><td>saxq</td></tr><tr><td>网游编程教程</td><td><a href="https://pan.baidu.com/s/1bpyZgjt" target="_blank" rel="noopener">点我查看资源</a></td><td>bpda</td></tr><tr><td>驱动系列教程（6套）</td><td><a href="https://pan.baidu.com/s/1eROvpzc" target="_blank" rel="noopener">点我查看资源</a></td><td>kpok</td></tr><tr><td>精易论坛易语言核心支持库全套教程</td><td><a href="https://pan.baidu.com/s/1jIPjqoI" target="_blank" rel="noopener">点我查看资源</a></td><td>w66k</td></tr><tr><td>牛B代码论坛PE格式学习视频教程（29课）</td><td><a href="https://pan.baidu.com/s/1dE4e6nn" target="_blank" rel="noopener">点我查看资源</a></td><td>sjnv</td></tr><tr><td>阳光学院数据结构[24课]</td><td><a href="https://pan.baidu.com/s/1pLVeJu7" target="_blank" rel="noopener">点我查看资源</a></td><td>sayu</td></tr><tr><td>病毒（电脑上不要双击打开）</td><td><a href="http://pan.baidu.com/s/1boTQ1H1" target="_blank" rel="noopener">点我查看资源</a></td><td>2mvg</td></tr><tr><td>大学吧</td><td><a href="https://pan.baidu.com/s/1jI2ixEY" target="_blank" rel="noopener">点我查看资源</a></td><td>n71u</td></tr><tr><td>Cisco思科教程</td><td><a href="https://pan.baidu.com/s/1kUZGfY3" target="_blank" rel="noopener">点我查看资源</a></td><td>rnce</td></tr><tr><td>安全教程系列（6套）</td><td><a href="https://pan.baidu.com/s/1qXRyJfe" target="_blank" rel="noopener">点我查看资源</a></td><td>fbxf</td></tr><tr><td>猎豹网校教程系列（2套）</td><td><a href="https://pan.baidu.com/s/1ge7yp7X" target="_blank" rel="noopener">点我查看资源</a></td><td>8bhd</td></tr><tr><td>安全防御（5套）</td><td><a href="https://pan.baidu.com/s/1eSBevia" target="_blank" rel="noopener">点我查看资源</a></td><td>sbfa</td></tr><tr><td>Mayter_2014年大型Web安全培训课程</td><td><a href="https://pan.baidu.com/s/1sl6Edw5" target="_blank" rel="noopener">点我查看资源</a></td><td>aipi</td></tr><tr><td>清华大学计算机学习资源(20套)</td><td><a href="https://pan.baidu.com/s/1qYD1OsO" target="_blank" rel="noopener">点我查看资源</a></td><td>vi76</td></tr><tr><td>吉林大学计算机远程教程（13套）</td><td><a href="https://pan.baidu.com/s/1dFypm5V" target="_blank" rel="noopener">点我查看资源</a></td><td>9i47</td></tr><tr><td>其它大学计算机课程（5套）</td><td><a href="https://pan.baidu.com/s/1slhBMfb" target="_blank" rel="noopener">点我查看资源</a></td><td>qulv</td></tr><tr><td>上海交通大学计算机专业课程(45套)</td><td><a href="https://pan.baidu.com/s/1o8hbUf4" target="_blank" rel="noopener">点我查看资源</a></td><td>1d0d</td></tr><tr><td>电脑维修教程（13套）</td><td><a href="http://pan.baidu.com/s/1gf4q8Jh" target="_blank" rel="noopener">点我查看资源</a></td><td>dxpq</td></tr><tr><td>Apache服务深入解析系列视频教程</td><td><a href="https://pan.baidu.com/s/1c1KvCoo" target="_blank" rel="noopener">点我查看资源</a></td><td>zwv1</td></tr><tr><td>电脑维修（4套）</td><td><a href="http://pan.baidu.com/s/1mi1ymhy" target="_blank" rel="noopener">点我查看资源</a></td><td>4mi9</td></tr><tr><td>新网站SEO五步优化法原版无KEY</td><td><a href="https://pan.baidu.com/s/1eRElOVC" target="_blank" rel="noopener">点我查看资源</a></td><td>a52k</td></tr><tr><td>黑客小技巧</td><td><a href="https://pan.baidu.com/s/1c1PLmSS" target="_blank" rel="noopener">点我查看资源</a></td><td>c9s6</td></tr><tr><td>利用路由器后台查看宽带账号密码</td><td><a href="https://pan.baidu.com/s/1c2r57eo" target="_blank" rel="noopener">点我查看资源</a></td><td>kxiv</td></tr><tr><td>隐藏创建用户教程</td><td><a href="https://pan.baidu.com/s/1pLgtN7d" target="_blank" rel="noopener">点我查看资源</a></td><td>87ap</td></tr><tr><td>电脑技术类教程（3套）</td><td><a href="https://pan.baidu.com/s/1c1dc9w" target="_blank" rel="noopener">点我查看资源</a></td><td>baom</td></tr><tr><td>图文教程PIN进度保存和修改方法</td><td><a href="https://pan.baidu.com/s/1eSz8YA2" target="_blank" rel="noopener">点我查看资源</a></td><td>1cgk</td></tr><tr><td>雨荷数据恢复教程1-63集</td><td><a href="https://pan.baidu.com/s/1dEPJli5" target="_blank" rel="noopener">点我查看资源</a></td><td>u8o8</td></tr><tr><td>最新远程控制别人电脑比QQ更快</td><td><a href="https://pan.baidu.com/s/1boEsbYf" target="_blank" rel="noopener">点我查看资源</a></td><td>gdnd</td></tr><tr><td>经典万能密码进后台</td><td><a href="https://pan.baidu.com/s/1nuFtA1j" target="_blank" rel="noopener">点我查看资源</a></td><td>lc68</td></tr><tr><td>图书教程</td><td><a href="http://pan.baidu.com/s/1gf6rY9P" target="_blank" rel="noopener">点我查看资源</a></td><td>1gh5</td></tr><tr><td>黑客新手综合书藉</td><td><a href="https://pan.baidu.com/s/1eRCjFJ8" target="_blank" rel="noopener">点我查看资源</a></td><td>28xv</td></tr><tr><td></td><td></td><td></td></tr><tr><td>linuxPDF教程</td><td><a href="https://pan.baidu.com/s/1geGl05d" target="_blank" rel="noopener">点我查看资源</a></td><td>yyti</td></tr><tr><td>学员渗透录PDF</td><td><a href="https://pan.baidu.com/s/1dFt5im9" target="_blank" rel="noopener">点我查看资源</a></td><td>vyf8</td></tr><tr><td>高手入侵总结文档</td><td><a href="http://pan.baidu.com/s/1pL8KaQR" target="_blank" rel="noopener">点我查看资源</a></td><td>y68q</td></tr><tr><td>2015年最新教程集</td><td><a href="https://pan.baidu.com/s/1c2umNfy" target="_blank" rel="noopener">点我查看资源</a></td><td>yz1u</td></tr><tr><td>以下为软件链接</td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td>文件名</td><td>链接</td><td>提取密码</td></tr><tr><td>cracer配套软件</td><td><a href="http://pan.baidu.com/s/1hsDIjFe" target="_blank" rel="noopener">点我查看资源</a></td><td>dkfe</td></tr><tr><td>百度云网盘破解版（点击试用加速，永久加速）</td><td><a href="http://pan.baidu.com/s/1o7Bnsls" target="_blank" rel="noopener">点我查看资源</a></td><td>w27h</td></tr><tr><td>邪影渗透小组工具包2016最新版 V2.3</td><td><a href="http://pan.baidu.com/s/1c2mLyQ8" target="_blank" rel="noopener">点我查看资源</a></td><td>jkns</td></tr><tr><td>腾讯QQ5.5(11447)木头查IP精简版</td><td><a href="https://pan.baidu.com/s/1c27K8I8" target="_blank" rel="noopener">点我查看资源</a></td><td>wm6q</td></tr><tr><td>2009qq获得IP</td><td><a href="http://pan.baidu.com/s/1hrKSVGg" target="_blank" rel="noopener">点我查看资源</a></td><td>zau8</td></tr><tr><td>操作系统</td><td><a href="http://pan.baidu.com/s/1miSAPz6" target="_blank" rel="noopener">点我查看资源</a></td><td>amzt</td></tr><tr><td>虚拟机</td><td><a href="http://pan.baidu.com/s/1mhSSkZY" target="_blank" rel="noopener">点我查看资源</a></td><td>qe29</td></tr><tr><td>2015-K8飞刀</td><td><a href="http://pan.baidu.com/s/1kUFxacf" target="_blank" rel="noopener">点我查看资源</a></td><td>xc1b</td></tr><tr><td>Layer子域名挖掘机3.1</td><td><a href="http://pan.baidu.com/s/1mi2JYFu" target="_blank" rel="noopener">点我查看资源</a></td><td>l3xf</td></tr><tr><td>[最新版]邪影渗透小组工具包</td><td><a href="http://pan.baidu.com/s/1kV4hWY7" target="_blank" rel="noopener">点我查看资源</a></td><td>fbe0</td></tr><tr><td>安全盒子旁注工具_jar版</td><td><a href="http://pan.baidu.com/s/1kUKgLOb" target="_blank" rel="noopener">点我查看资源</a></td><td>oybc</td></tr><tr><td>提权区域</td><td><a href="http://pan.baidu.com/s/1jHQoyAM" target="_blank" rel="noopener">点我查看资源</a></td><td>hiyy</td></tr><tr><td>hydra-7.3-windows</td><td><a href="http://pan.baidu.com/s/1nuUmcHz" target="_blank" rel="noopener">点我查看资源</a></td><td>oa49</td></tr><tr><td>swf播放器</td><td><a href="http://pan.baidu.com/s/1skNss49" target="_blank" rel="noopener">点我查看资源</a></td><td>2ojz</td></tr><tr><td>钓鱼网站源码</td><td><a href="https://pan.baidu.com/s/1bpmNsVP" target="_blank" rel="noopener">点我查看资源</a></td><td>5fm0</td></tr><tr><td>网站源码</td><td><a href="http://pan.baidu.com/s/1bphxHfT" target="_blank" rel="noopener">点我查看资源</a></td><td>6uxt</td></tr><tr><td>VirtualBox虚拟机 Portable v4.2.18.88780 中文绿色便携版 32位_XP85</td><td><a href="http://pan.baidu.com/s/1eSwkCHO" target="_blank" rel="noopener">点我查看资源</a></td><td>pch0</td></tr><tr><td>安卓远控5.0重启上线版本（慎用，我没测试过）</td><td><a href="http://pan.baidu.com/s/1nu7l1n7" target="_blank" rel="noopener">点我查看资源</a></td><td>ops5</td></tr><tr><td>传马工具</td><td><a href="http://pan.baidu.com/s/1pLRGxD5" target="_blank" rel="noopener">点我查看资源</a></td><td>e1i6</td></tr><tr><td>最新木马</td><td><a href="http://pan.baidu.com/s/1hrJ6Zkg" target="_blank" rel="noopener">点我查看资源</a></td><td>q8oe</td></tr><tr><td>2015穿盾</td><td><a href="http://pan.baidu.com/s/1sk8zs5Z" target="_blank" rel="noopener">点我查看资源</a></td><td>vhmd</td></tr><tr><td>官方大灰狼远程管理V8.96 更新免杀</td><td><a href="http://pan.baidu.com/s/1boXUuuV" target="_blank" rel="noopener">点我查看资源</a></td><td>9gs9</td></tr><tr><td>木马源码</td><td><a href="http://pan.baidu.com/s/1dES08M1" target="_blank" rel="noopener">点我查看资源</a></td><td>69ha</td></tr><tr><td>抓肉鸡软件</td><td><a href="http://pan.baidu.com/s/1cmj4q6" target="_blank" rel="noopener">点我查看资源</a></td><td>s6ln</td></tr><tr><td>微信朋友圈支付宝截图制作软件</td><td><a href="http://pan.baidu.com/s/1pL3ZSG7" target="_blank" rel="noopener">点我查看资源</a></td><td>riqq</td></tr><tr><td>暴力宣传软件生成器</td><td><a href="http://pan.baidu.com/s/1eRTe3Xg" target="_blank" rel="noopener">点我查看资源</a></td><td>mjvp</td></tr><tr><td>录屏专家破解版</td><td><a href="http://pan.baidu.com/s/1kUAD1VT" target="_blank" rel="noopener">点我查看资源</a></td><td>6e6y</td></tr><tr><td>营业执照生成器可用于 微博认证</td><td><a href="http://pan.baidu.com/s/1pLtk6ZT" target="_blank" rel="noopener">点我查看资源</a></td><td>untp</td></tr><tr><td>优酷会员电影免费看</td><td><a href="http://pan.baidu.com/s/1kVHFou7" target="_blank" rel="noopener">点我查看资源</a></td><td>3p46</td></tr><tr><td>电脑加密软件破解软件</td><td><a href="https://pan.baidu.com/s/1dFDNIlb" target="_blank" rel="noopener">点我查看资源</a></td><td>76pe</td></tr><tr><td>手机渗透系统</td><td><a href="https://pan.baidu.com/s/1qXZ5R20" target="_blank" rel="noopener">点我查看资源</a></td><td>iunc</td></tr><tr><td>远控+手机端</td><td><a href="https://pan.baidu.com/s/1c2HTGzu" target="_blank" rel="noopener">点我查看资源</a></td><td>wka2</td></tr><tr><td>裤子收藏</td><td><a href="http://pan.baidu.com/s/1c29Mj7a" target="_blank" rel="noopener">点我查看资源</a></td><td>7wpj</td></tr><tr><td>4899抓鸡+网吧i8desk控制台挂马</td><td><a href="https://pan.baidu.com/s/1dFyUMch" target="_blank" rel="noopener">点我查看资源</a></td><td>4qgi</td></tr><tr><td>appscan9.02</td><td><a href="https://pan.baidu.com/s/1miljvte" target="_blank" rel="noopener">点我查看资源</a></td><td>u9ov</td></tr><tr><td>类库</td><td><a href="https://pan.baidu.com/s/1jItuVB4" target="_blank" rel="noopener">点我查看资源</a></td><td>rqdl</td></tr><tr><td>复愁者渗透工具包</td><td><a href="https://pan.baidu.com/s/1eSiDJP4" target="_blank" rel="noopener">点我查看资源</a></td><td>nmkk</td></tr><tr><td>比较全的提权工具</td><td><a href="https://pan.baidu.com/s/1c2HnKLq" target="_blank" rel="noopener">点我查看资源</a></td><td>af79</td></tr><tr><td>天镜脆弱性扫描与管理系统</td><td><a href="https://pan.baidu.com/s/1c2n16sK" target="_blank" rel="noopener">点我查看资源</a></td><td>x4to</td></tr><tr><td>海伦匿名者U盘文件</td><td><a href="https://pan.baidu.com/s/1o8s6YO6" target="_blank" rel="noopener">点我查看资源</a></td><td>r31i</td></tr><tr><td>渗透系统</td><td><a href="https://pan.baidu.com/s/1bp5KHfp" target="_blank" rel="noopener">点我查看资源</a></td><td>zy43</td></tr><tr><td>qq2013源码</td><td><a href="http://pan.baidu.com/s/1qYD1Jru" target="_blank" rel="noopener">点我查看资源</a></td><td>7il1</td></tr><tr><td>墨白免杀远控</td><td><a href="http://pan.baidu.com/s/1nvfHP5v" target="_blank" rel="noopener">点我查看资源</a></td><td>bqub</td></tr><tr><td>地球上最小的极速浏览器</td><td><a href="https://pan.baidu.com/s/1i5K1As9" target="_blank" rel="noopener">点我查看资源</a></td><td>crdr</td></tr><tr><td>kali-linux系统</td><td><a href="https://pan.baidu.com/s/1colNEA" target="_blank" rel="noopener">点我查看资源</a></td><td>ik7g</td></tr><tr><td>md5彩虹表</td><td><a href="https://pan.baidu.com/s/1hr4EsLI" target="_blank" rel="noopener">点我查看资源</a></td><td>j3k5</td></tr><tr><td>WIFEI暴破</td><td><a href="https://pan.baidu.com/s/1mhXC0J2" target="_blank" rel="noopener">点我查看资源</a></td><td>rpa2</td></tr><tr><td>WPA-WPA2无线网络</td><td><a href="https://pan.baidu.com/s/1i4PAZUP" target="_blank" rel="noopener">点我查看资源</a></td><td>8psu</td></tr><tr><td>安卓逆向工具</td><td><a href="https://pan.baidu.com/s/1i4J5zvR" target="_blank" rel="noopener">点我查看资源</a></td><td>euff</td></tr><tr><td>加密狗破解</td><td><a href="https://pan.baidu.com/s/1boZqDtH" target="_blank" rel="noopener">点我查看资源</a></td><td>cu3r</td></tr><tr><td>漏洞收藏</td><td><a href="https://pan.baidu.com/s/1o85yrDC" target="_blank" rel="noopener">点我查看资源</a></td><td>qspe</td></tr><tr><td>录屏工具</td><td><a href="https://pan.baidu.com/s/1c10cKX6" target="_blank" rel="noopener">点我查看资源</a></td><td>cmmr</td></tr><tr><td>免杀源码</td><td><a href="https://pan.baidu.com/s/1boO1svH" target="_blank" rel="noopener">点我查看资源</a></td><td>ftxt</td></tr><tr><td>渗透系统</td><td><a href="https://pan.baidu.com/s/1o86KkFw" target="_blank" rel="noopener">点我查看资源</a></td><td>79u1</td></tr><tr><td>提权exp收录</td><td><a href="https://pan.baidu.com/s/1jIO3tno" target="_blank" rel="noopener">点我查看资源</a></td><td>3b2m</td></tr><tr><td>天天酷跑精灵帮帮</td><td><a href="https://pan.baidu.com/s/1dE94kOL" target="_blank" rel="noopener">点我查看资源</a></td><td>ihdm</td></tr><tr><td>易语言黑客软件源码打包</td><td><a href="https://pan.baidu.com/s/1eRTeTZc" target="_blank" rel="noopener">点我查看资源</a></td><td>q33y</td></tr><tr><td>字典</td><td><a href="https://pan.baidu.com/s/1miwETYS" target="_blank" rel="noopener">点我查看资源</a></td><td>ter8</td></tr><tr><td>AppScan 8.7</td><td><a href="https://pan.baidu.com/s/1c1Cofrq" target="_blank" rel="noopener">点我查看资源</a></td><td>ezlr</td></tr><tr><td>Bat转Exe格式</td><td><a href="https://pan.baidu.com/s/1c2I9Syc" target="_blank" rel="noopener">点我查看资源</a></td><td>9ugh</td></tr><tr><td>DarkDuke远控2.0</td><td><a href="https://pan.baidu.com/s/1c1XmLry" target="_blank" rel="noopener">点我查看资源</a></td><td>vnd0</td></tr><tr><td>FTP密码爆破</td><td><a href="https://pan.baidu.com/s/1kV76rn5" target="_blank" rel="noopener">点我查看资源</a></td><td>87k3</td></tr><tr><td>phpddos攻击器</td><td><a href="https://pan.baidu.com/s/1slcRSZj" target="_blank" rel="noopener">点我查看资源</a></td><td>tdja</td></tr><tr><td>Seay webshell查杀工具 C#版源码</td><td><a href="https://pan.baidu.com/s/1eSv5orC" target="_blank" rel="noopener">点我查看资源</a></td><td>avbz</td></tr><tr><td>超给力密码字典集合</td><td><a href="https://pan.baidu.com/s/1sl3WpFf" target="_blank" rel="noopener">点我查看资源</a></td><td>ybwy</td></tr><tr><td>WEB旁注爬虫</td><td><a href="https://pan.baidu.com/s/1bpIBWkR" target="_blank" rel="noopener">点我查看资源</a></td><td>x16f</td></tr><tr><td>龙卷风DDOS 无需肉鸡 利用CC代理IP攻击</td><td><a href="https://pan.baidu.com/s/1o7UkB2a" target="_blank" rel="noopener">点我查看资源</a></td><td>rkta</td></tr><tr><td>内网装逼套装</td><td><a href="https://pan.baidu.com/s/1gf7E1vP" target="_blank" rel="noopener">点我查看资源</a></td><td>7c8p</td></tr><tr><td>强DNS攻击器（汉化版）</td><td><a href="https://pan.baidu.com/s/1kUZGv59" target="_blank" rel="noopener">点我查看资源</a></td><td>6x9k</td></tr><tr><td>突破ARP防火墙，局域网限速软件SKiller</td><td><a href="https://pan.baidu.com/s/1i4Opg37" target="_blank" rel="noopener">点我查看资源</a></td><td>m3gb</td></tr><tr><td>万象一键加钱</td><td><a href="https://pan.baidu.com/s/1qY0A6pm" target="_blank" rel="noopener">点我查看资源</a></td><td>5u4s</td></tr><tr><td>网页格式离线工具包</td><td><a href="https://pan.baidu.com/s/1miNdtRq" target="_blank" rel="noopener">点我查看资源</a></td><td>w79j</td></tr><tr><td>无线破解手机软件</td><td><a href="https://pan.baidu.com/s/1jIyKRtW" target="_blank" rel="noopener">点我查看资源</a></td><td>u9kl</td></tr><tr><td>无需进路由器，就能映射端口的工具软件</td><td><a href="https://pan.baidu.com/s/1i5NPzcp" target="_blank" rel="noopener">点我查看资源</a></td><td>x1ag</td></tr><tr><td>一键系统还原，一键备份系统，一键重装系统</td><td><a href="https://pan.baidu.com/s/1c12eDxA" target="_blank" rel="noopener">点我查看资源</a></td><td>d3u6</td></tr><tr><td>用OD修改软件标题</td><td><a href="https://pan.baidu.com/s/1nvETMlF" target="_blank" rel="noopener">点我查看资源</a></td><td>vchm</td></tr><tr><td>源码小偷</td><td><a href="https://pan.baidu.com/s/1qYMVkzM" target="_blank" rel="noopener">点我查看资源</a></td><td>lirw</td></tr><tr><td>中国寒龙低轨道粒子炮，汉化版，含源码</td><td><a href="https://pan.baidu.com/s/1jHKjvyI" target="_blank" rel="noopener">点我查看资源</a></td><td>2vis</td></tr><tr><td>终身免费邮件群发器V3.2</td><td><a href="https://pan.baidu.com/s/1kVwaZND" target="_blank" rel="noopener">点我查看资源</a></td><td>anra</td></tr><tr><td>最新全国ip段</td><td><a href="https://pan.baidu.com/s/1o8gvM6e" target="_blank" rel="noopener">点我查看资源</a></td><td>93mm</td></tr><tr><td>VM虚拟机9.0.2最新版+汉化+注册机</td><td><a href="https://pan.baidu.com/s/1slcRTff" target="_blank" rel="noopener">点我查看资源</a></td><td>ys12</td></tr><tr><td>各种功能的工具包</td><td><a href="http://pan.baidu.com/s/1boAUprx" target="_blank" rel="noopener">点我查看资源</a></td><td>w4m4</td></tr><tr><td>安卓渗透工具</td><td><a href="http://pan.baidu.com/s/1eRYEJ9g" target="_blank" rel="noopener">点我查看资源</a></td><td>1jc1</td></tr><tr><td>黑客实用小软件（100多）</td><td><a href="https://pan.baidu.com/s/1c1XSX0W" target="_blank" rel="noopener">点我查看资源</a></td><td>cams</td></tr><tr><td>其它源码</td><td><a href="https://pan.baidu.com/s/1qYTGXbA" target="_blank" rel="noopener">点我查看资源</a></td><td>f2wf</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;链接&lt;/th&gt;
+&lt;th&gt;密码&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;一笔√带过入侵教程&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;http://pan.baidu.com/s/
+      
+    
+    </summary>
+    
+      <category term="网络安全" scheme="http://wudiblog.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="资源" scheme="http://wudiblog.com/tags/%E8%B5%84%E6%BA%90/"/>
+    
+      <category term="网安" scheme="http://wudiblog.com/tags/%E7%BD%91%E5%AE%89/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows环境以太坊私链搭建</title>
+    <link href="http://wudiblog.com/2018/05/04/Windows%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E9%93%BE%E6%90%AD%E5%BB%BA/"/>
+    <id>http://wudiblog.com/2018/05/04/Windows环境以太坊私链搭建/</id>
+    <published>2018-05-04T03:10:22.000Z</published>
+    <updated>2019-02-02T07:16:58.545Z</updated>
+    
+    <content type="html"><![CDATA[<p>做以下准备：</p><ol><li><p>win10系统，64位</p></li><li><p>以太坊钱包</p></li><li><p>以太坊geth客户端</p></li></ol><p>​     geth 和 钱包可以到ethfans.org的资料库里下载，那里提供国内镜像和官网地址。</p><p>​     钱包工具：<a href="https://ethfans.org/wikis/Ethereum-Wallet-Mirror" target="_blank" rel="noopener">https://ethfans.org/wikis/Ethereum-Wallet-Mirror</a></p><p>​     geth :<a href="https://ethfans.org/wikis/Ethereum-Geth-Mirror" target="_blank" rel="noopener">https://ethfans.org/wikis/Ethereum-Geth-Mirror</a></p><p>创建创世块文件 genesis.json</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"config"</span>: &#123;</span><br><span class="line">        <span class="attr">"chainId"</span>: <span class="number">15</span>,</span><br><span class="line">        <span class="attr">"homesteadBlock"</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">"eip155Block"</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">"eip158Block"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">  <span class="attr">"alloc"</span>      : &#123;&#125;,</span><br><span class="line">  <span class="attr">"coinbase"</span>   : <span class="string">"0x0000000000000000000000000000000000000000"</span>,</span><br><span class="line">  <span class="attr">"difficulty"</span> : <span class="string">"0x2000"</span>,</span><br><span class="line">  <span class="attr">"extraData"</span>  : <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"gasLimit"</span>   : <span class="string">"0x2fefd8"</span>,</span><br><span class="line">  <span class="attr">"nonce"</span>      : <span class="string">"0x0000000000000042"</span>,</span><br><span class="line">  <span class="attr">"mixhash"</span>    : <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">  <span class="attr">"parentHash"</span> : <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">  <span class="attr">"timestamp"</span>  : <span class="string">"0x00"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><table><thead><tr><th>字段名</th><th>含义</th></tr></thead><tbody><tr><td>nonce</td><td>nonce就是一个64位随机数，用于挖矿，注意他和mixhash的设置需要满足以太坊的Yellow paper, 4.3.4. Block Header Validity, (44)章节所描述的条件。</td></tr><tr><td>difficulty</td><td>设置当前区块的难度，如果难度过大，cpu挖矿就很难，这里设置较小难度</td></tr><tr><td>alloc</td><td>用来预置账号以及账号的以太币数量，因为私有链挖矿比较容易，所以我们不需要预置有币的账号，需要的时候自己创建即可以。</td></tr><tr><td>coinbase</td><td>矿工的账号，随便填</td></tr><tr><td>timestamp</td><td>设置创世块的时间戳</td></tr><tr><td>parentHash</td><td>上一个区块的hash值，因为是创世块，所以这个值是0</td></tr><tr><td>extraData</td><td>附加信息，随便填，可以填你的个性信息</td></tr><tr><td>gasLimit</td><td>该值设置对GAS的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私有链，所以填最大。</td></tr><tr><td>mixhash</td><td>与nonce配合用于挖矿，由上一个区块的一部分生成的hash。注意他和nonce的设置需要满足以太坊的Yellow paper, 4.3.4. Block Header Validity, (44)章节所描述的条件。.</td></tr></tbody></table><p>初始化区块链</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth --identity "PICCetherum" --rpc --rpccorsdomain "*" --datadir "./data" --port "30303" --rpcapi "db,eth,net,web3" --networkid 95518 console</span><br></pre></td></tr></table></figure><p>创建用户</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">personal.newAccount()</span><br></pre></td></tr></table></figure><p>启动钱包可视化软件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar -xvf  迭代9需求.zip</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;做以下准备：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;win10系统，64位&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;以太坊钱包&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;以太坊geth客户端&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;​     geth 和 钱包可以到ethfans.org
+      
+    
+    </summary>
+    
+      <category term="区块链" scheme="http://wudiblog.com/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    
+      <category term="虚拟货币" scheme="http://wudiblog.com/tags/%E8%99%9A%E6%8B%9F%E8%B4%A7%E5%B8%81/"/>
+    
+      <category term="以太坊" scheme="http://wudiblog.com/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/"/>
+    
+      <category term="区块链" scheme="http://wudiblog.com/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux网络命令</title>
+    <link href="http://wudiblog.com/2017/01/13/Linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/"/>
+    <id>http://wudiblog.com/2017/01/13/Linux网络命令/</id>
+    <published>2017-01-13T15:02:09.000Z</published>
+    <updated>2019-02-02T05:54:00.761Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>ifconfig：<ul><li>查看与配置网络状态命令 、</li></ul></li><li>ifup/ifdown + 网卡名：<ul><li>启用/禁用网卡</li></ul></li><li>netstat选项（网络状态查询）：<ul><li>-t：列出TCP协议端口</li><li>-u：列出UDP协议端口</li><li>-n：不使用域名与服务名，而使用IP地址和端口号</li><li>-l：仅列出在监听状态网络服务</li><li>-a：列出所有</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;ifconfig：
+&lt;ul&gt;
+&lt;li&gt;查看与配置网络状态命令 、&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ifup/ifdown + 网卡名：
+&lt;ul&gt;
+&lt;li&gt;启用/禁用网卡&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;netstat选项（网络状态查询）：
+&lt;
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="Linux" scheme="http://wudiblog.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网关作用以及讲解</title>
+    <link href="http://wudiblog.com/2017/01/12/%E7%BD%91%E5%85%B3%E4%BD%9C%E7%94%A8%E4%BB%A5%E5%8F%8A%E8%AE%B2%E8%A7%A3/"/>
+    <id>http://wudiblog.com/2017/01/12/网关作用以及讲解/</id>
+    <published>2017-01-12T06:13:57.000Z</published>
+    <updated>2019-02-02T06:39:43.620Z</updated>
+    
+    <content type="html"><![CDATA[<p>概念：</p><ul><li>网关（Gateway）又称网间连接器，协议转换器</li><li>网关在网络层以上实现网络互联，是最复杂的网络互连设备，仅用于两个高层协议不同的网络互联</li><li>网管既可以用于广域网互联，也可以用于局域网互联。</li><li>网关是一种充当转换重任的服务器或路由器</li></ul><p>示意图：</p><p><img src="/2017/01/12/网关作用以及讲解/image1.png" alt="2017-01-12 23-49-32屏幕截图"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;网关（Gateway）又称网间连接器，协议转换器&lt;/li&gt;
+&lt;li&gt;网关在网络层以上实现网络互联，是最复杂的网络互连设备，仅用于两个高层协议不同的网络互联&lt;/li&gt;
+&lt;li&gt;网管既可以用于广域网互联，也可以用于局域网互联。&lt;/li&gt;
+&lt;li
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="网关" scheme="http://wudiblog.com/tags/%E7%BD%91%E5%85%B3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DNS作用以及讲解</title>
+    <link href="http://wudiblog.com/2017/01/12/DNS%E4%BD%9C%E7%94%A8%E4%BB%A5%E5%8F%8A%E8%AE%B2%E8%A7%A3/"/>
+    <id>http://wudiblog.com/2017/01/12/DNS作用以及讲解/</id>
+    <published>2017-01-11T17:14:00.000Z</published>
+    <updated>2019-02-02T06:51:10.254Z</updated>
+    
+    <content type="html"><![CDATA[<p>不配置DNS是不能访问互联网的</p><p>Domain Name System的缩写，域名系统的缩写，又叫名称解析</p><p>名称解析概述</p><ul><li>在互联网中，通过IP地址来进行通信</li><li>IP地址用数字表示，记忆起来比较困难</li><li>人对域名更加敏感</li></ul><p>在DNS出现之前，我们有hosts文件（静态IP和域名对应），优先级比DNS更高</p><p>从Hosts文件到DNS</p><ul><li>早期Hosts文件解析域名<ol><li>名称解析效能下降</li><li>主机维护困难</li></ol></li><li>DNS服务<ol><li>层次性</li><li>分布式</li></ol></li></ul><p>DNS服务的作用</p><ul><li>将域名解析为IP地址<ol><li>客户机向DNS服务器发送域名查询请求</li><li>DNS服务器告知客户机Web服务器的IP地址</li><li>客户机与Web服务器通信</li></ol></li></ul><p>域名空间结构</p><p>​          <img src="/2017/01/12/DNS作用以及讲解/iamge1.png" alt="iamge1"></p><ul><li>根域</li><li>顶级域（域名分配组织ISO分配）<ol><li>组织域（gov政府，com商业，edu教育，org民间组织，net网络服务，mil军事）</li><li>国家或地区域(cn中国，hk香港，jp日本，uk英国，au澳大利亚)</li></ol></li><li>二级域</li><li>主机名</li></ul><p>DNS查询过程<br><img src="/2017/01/12/DNS作用以及讲解/image2.png" alt="image2"></p><p>DNS查询类型</p><ul><li>从查询方式上区分<ul><li>递归查询：要么做出查询成功响应，要么作出查询失败的响应，一般客户机和服务器之间属于递归查询，即当客户机向DNS服务器发出请求后，若DNS服务器本身不能解析，则会向另外的DNS服务器发出查询请求，得到结果后转交给客户机</li><li>迭代查询：服务器收到一次迭代查询回复一次结果，这个结果不一定是目标IP与域名的映射关系，也可以是其他DNS服务器的地址</li></ul></li><li>从查询内容上区分<ul><li>正向查询由域名查找IP地址</li><li>反向查询由IP地址查找域名</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;不配置DNS是不能访问互联网的&lt;/p&gt;
+&lt;p&gt;Domain Name System的缩写，域名系统的缩写，又叫名称解析&lt;/p&gt;
+&lt;p&gt;名称解析概述&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在互联网中，通过IP地址来进行通信&lt;/li&gt;
+&lt;li&gt;IP地址用数字表示，记忆起来比较困难&lt;/li&gt;
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="DNS" scheme="http://wudiblog.com/tags/DNS/"/>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSH协议远程登录</title>
+    <link href="http://wudiblog.com/2017/01/03/SSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/"/>
+    <id>http://wudiblog.com/2017/01/03/SSH协议远程登录/</id>
+    <published>2017-01-03T03:02:09.000Z</published>
+    <updated>2019-02-02T07:08:16.499Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>SSH协议原理</p><p>对称加密算法：</p><p>采用单钥密码系统的加密方法，同一个秘钥可以同时用作信息的加密和解密，这种加密方法成为对称加密，也称为单秘钥加密</p><p>非对称加密算法：</p><p>又名“公开秘钥加密算法”，非对称加密算法需要两个秘钥：公开秘钥和私有秘钥</p><p>​ssh 用户名@ip  远程登录指定Linux服务器</p><p>​scp [-r] 用户名@ip：文件路径 本地路径  下载文件</p><p>​scp [-r] 本地文件 用户名@ip：上传路径  上传文件</p></li><li><p><strong>SecureCRT远程管理工具</strong></p></li></ul><p>​       windows平台管理linux服务器，收费</p><ul><li><strong>Xshell工具</strong></li></ul><p>​       windows平台管理linux服务器，免费</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;SSH协议原理&lt;/p&gt;
+&lt;p&gt;对称加密算法：&lt;/p&gt;
+&lt;p&gt;采用单钥密码系统的加密方法，同一个秘钥可以同时用作信息的加密和解密，这种加密方法成为对称加密，也称为单秘钥加密&lt;/p&gt;
+&lt;p&gt;非对称加密算法：&lt;/p&gt;
+&lt;p&gt;又名“公开秘钥加密算法”，非对称加密
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="SSH" scheme="http://wudiblog.com/tags/SSH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实现WebView中网页与App的Activity跳转</title>
+    <link href="http://wudiblog.com/2016/12/02/%E5%AE%9E%E7%8E%B0WebView%E4%B8%AD%E7%BD%91%E9%A1%B5%E4%B8%8EApp%E7%9A%84Activity%E8%B7%B3%E8%BD%AC/"/>
+    <id>http://wudiblog.com/2016/12/02/实现WebView中网页与App的Activity跳转/</id>
+    <published>2016-12-02T15:58:02.000Z</published>
+    <updated>2019-02-02T07:08:06.255Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>介绍三种实现方式:</p><ol><li>通过JS来实现</li><li>通过scheme来实现(不支持webview的重定向)</li><li>通过webview的重定向（setWebViewClient（WebView view,String url）{})方法中对url判断，隐式意图打开Activity</li></ol></blockquote><h3 id="1通过js"><a class="markdownIt-Anchor" href="#1通过js"></a> 1.通过JS</h3><p>只需要三个步骤:</p><ul><li>WebView开启JavaScript脚本执行。</li><li>WebView设置供JavaScript调用的交互接口。</li><li>客户端和网页端编写调用对方的代码。</li></ul><h3 id="2通过schemedeep-linking深度链接"><a class="markdownIt-Anchor" href="#2通过schemedeep-linking深度链接"></a> 2.通过scheme（Deep Linking深度链接)</h3><p>2.1在html中，设置链接</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"myscheme://host：8080/path/?action=com.example.wudi.webviewdemo.baginfo&amp;id=123"</span>&gt;</span> Take a QR code <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--bagin</span></span><br><span class="line"><span class="comment">     下面介绍各个部分:</span></span><br><span class="line"><span class="comment">          "myscheme":scheme</span></span><br><span class="line"><span class="comment">          "host":host主机</span></span><br><span class="line"><span class="comment">          "8080":post端口号</span></span><br><span class="line"><span class="comment">          "path":path路径</span></span><br><span class="line"><span class="comment">          "action"=com.example.wudi.webviewdemo.baginfo&amp;id=123:params参数</span></span><br><span class="line"><span class="comment">  --&gt;</span></span><br></pre></td></tr></table></figure><p>2.2然后我们在清单文件中需要给要打开的activity设置intent-filter的scheme(scheme:计划；组合；体制；诡计)，其中scheme必须和链接中scheme保持一致,host可写可不写，自行忽略</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".DemoActivity"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">!—</span> <span class="attr">URI</span> <span class="attr">Scheme</span>方式 <span class="attr">-</span>—&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"myscheme"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"host"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.BROWSABLE"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;data android:host=""</span></span><br><span class="line"><span class="comment">            android:mimeType=""</span></span><br><span class="line"><span class="comment">            android:path=""</span></span><br><span class="line"><span class="comment">            android:pathPattern=""</span></span><br><span class="line"><span class="comment">            android:pathPrefix=""</span></span><br><span class="line"><span class="comment">            android:port=""</span></span><br><span class="line"><span class="comment">            android:scheme=""</span></span><br><span class="line"><span class="comment">            android:ssp=""</span></span><br><span class="line"><span class="comment">            android:sspPattern=""</span></span><br><span class="line"><span class="comment">            android:sspPrefix=""/&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure><p>2.3 这样我们在要打开的activity中获取参数:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = getIntent();</span><br><span class="line">Log.e(<span class="string">"TAG"</span>, <span class="string">"scheme:"</span> + intent.getScheme());</span><br><span class="line">Uri uri = intent.getData();</span><br><span class="line"><span class="keyword">if</span> (uri != <span class="keyword">null</span>) &#123;</span><br><span class="line">    Log.e(<span class="string">"TAG"</span>, <span class="string">"id:"</span> + uri.getQueryParamter(<span class="string">"id"</span>));</span><br><span class="line">    Log.e(<span class="string">"TAG"</span>, <span class="string">"action:"</span> + uri.getQueryParamter(<span class="string">"name"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>需要注意的是：这种方式不支持webview的重定向操作，如果你对webview设置了重定向，那么就会返回:<a href="http://stackoverflow.com/questions/15568792/oauth-and-custom-scheme-result-in-a-err-unknown-url-scheme-in-chrome" target="_blank" rel="noopener">ERR_UNKNOWN_URL_SCHEME</a>(点击链接查看老外咋解决，前提要翻墙，其实他们也没解决)。</strong></p><h3 id="3通过隐式意图"><a class="markdownIt-Anchor" href="#3通过隐式意图"></a> 3.通过隐式意图</h3><p>如果我们不想写js，又想要对webview进行重定向（大多数android开发都需要，因为要适配),那么就可以通过隐式意图</p><p>基本上和第二种方式相同：</p><p>3.1 在html中:</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"android://?action=com.example.wudi.webviewdemo.baginfo&amp;id=123"</span>&gt;</span> Take a QR code <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure><p>3.2 与第二种方式不同的是：当中的链接是自己自定义的，如果你够聪明，就能拼写出优秀的uri，就像上边我拼的，因为项目中，需要和ios同步开发（ios用的LMBIOS），所以我定义了android来作为我的区分。  下边我们需要在清单文件中给activity设置action和category</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".DemoActivity"</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- &lt;!— URI Scheme方式 -—&gt;</span></span><br><span class="line"><span class="comment">    &lt;intent-filter&gt;</span></span><br><span class="line"><span class="comment">        &lt;action android:name="com.example.wudi.webviewdemo.baginfo"/&gt;</span></span><br><span class="line"><span class="comment">        &lt;category android:name="android.intent.category.DEFAULT"/&gt;</span></span><br><span class="line"><span class="comment">    &lt;/intent-filter&gt;</span></span><br><span class="line"><span class="comment">&lt;/activity&gt;</span></span><br></pre></td></tr></table></figure><p>3.3 可以发现我设置的action和上边链接中action参数一致，下边就需要在webview重定向时，进行判断了</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">webview.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="comment">//返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器</span></span><br><span class="line">        <span class="keyword">if</span> (url.startsWith(<span class="string">"android"</span>)) &#123;</span><br><span class="line">            Uri uri = Uri.parse(url);</span><br><span class="line">            String host = uri.getHost();</span><br><span class="line">            String action = uri.getQueryParameter(<span class="string">"action"</span>);</span><br><span class="line">            String id = uri.getQueryParameter(<span class="string">"id"</span>);</span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">            intent.setAction(action);</span><br><span class="line">            intent.putExtra(<span class="string">"id"</span>,id);</span><br><span class="line">            startActivity(intent);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            view.loadUrl(url);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>可以看到，我的链接拼接方式可以直接把url转成uri，并获取参数，打开activity</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;介绍三种实现方式:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通过JS来实现&lt;/li&gt;
+&lt;li&gt;通过scheme来实现(不支持webview的重定向)&lt;/li&gt;
+&lt;li&gt;通过webview的重定向（setWebViewClient（WebView view,Str
+      
+    
+    </summary>
+    
+      <category term="移动端" scheme="http://wudiblog.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+    
+    
+      <category term="Android" scheme="http://wudiblog.com/tags/Android/"/>
+    
+      <category term="WebView" scheme="http://wudiblog.com/tags/WebView/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>子网掩码讲解</title>
+    <link href="http://wudiblog.com/2016/09/20/%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E8%AE%B2%E8%A7%A3/"/>
+    <id>http://wudiblog.com/2016/09/20/子网掩码讲解/</id>
+    <published>2016-09-20T05:43:57.000Z</published>
+    <updated>2019-02-02T06:51:22.064Z</updated>
+    
+    <content type="html"><![CDATA[<p>ip和子网掩码不能单独使用，必须一起使用（不能分开查看，要一起查看）</p><p>标准子网掩码：255.0.0.0  255.255.0.0  255.255.255.0</p><p>表示对应的数变化就是不同网段，需要路由器才能相互访问，其他的变化没关系，还是同一个网段</p><p>A类IP：</p><p><img src="/2016/09/20/子网掩码讲解/image1.png" alt="image1"></p><p>B类IP：</p><p><img src="/2016/09/20/子网掩码讲解/image2.png" alt="image2"></p><p>C类IP：</p><p><img src="/2016/09/20/子网掩码讲解/image3.png" alt="image3"></p><p>变长子网掩码及子网规划:</p><p><img src="/2016/09/20/子网掩码讲解/image4.png" alt="image4"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ip和子网掩码不能单独使用，必须一起使用（不能分开查看，要一起查看）&lt;/p&gt;
+&lt;p&gt;标准子网掩码：255.0.0.0  255.255.0.0  255.255.255.0&lt;/p&gt;
+&lt;p&gt;表示对应的数变化就是不同网段，需要路由器才能相互访问，其他的变化没关系，还是同一个网段
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="子网掩码" scheme="http://wudiblog.com/tags/%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>端口讲解</title>
+    <link href="http://wudiblog.com/2016/08/17/%E7%AB%AF%E5%8F%A3%E8%AE%B2%E8%A7%A3/"/>
+    <id>http://wudiblog.com/2016/08/17/端口讲解/</id>
+    <published>2016-08-17T06:13:57.000Z</published>
+    <updated>2019-02-02T06:51:36.482Z</updated>
+    
+    <content type="html"><![CDATA[<p>在传输层确定端口号</p><p>通过ip能确定对方服务器位置，服务器上开启了一些服务，不同服务有不同的端口号，端口号就是为了确定目标服务器相应的服务</p><p>端口号 2的16次方  0 - 65535</p><p><strong>TCP协议包头：</strong></p><p><img src="/2016/08/17/端口讲解/image1.png" alt="image1"></p><p><strong>UDP协议包头：</strong></p><p><img src="/2016/08/17/端口讲解/iamge2.png" alt="iamge2"></p><p><strong>常见端口号：</strong></p><ul><li>FTP（文件传输协议）端口号：20 21</li><li>SSH（安全shell协议）：端口号 22</li><li>telnet（远程登录协议）：端口号 23（禁用，明文传输）</li><li>DNS（域名系统）：端口号53</li><li>http（超文本传输协议）：端口号80</li><li>SMTP（简单邮件传输协议）：端口号25</li><li>POP3（邮局协议3代）：端口号 110</li></ul><p>查看本机启用的端口命令：</p><p>netstat -an</p><p>​     -a：查看所有连接和监听端口</p><p>​     -n：显示IP地址和端口号，而不显示域名和服务名</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在传输层确定端口号&lt;/p&gt;
+&lt;p&gt;通过ip能确定对方服务器位置，服务器上开启了一些服务，不同服务有不同的端口号，端口号就是为了确定目标服务器相应的服务&lt;/p&gt;
+&lt;p&gt;端口号 2的16次方  0 - 65535&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TCP协议包头：&lt;/strong&gt;
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="端口" scheme="http://wudiblog.com/tags/%E7%AB%AF%E5%8F%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IP地址详解</title>
+    <link href="http://wudiblog.com/2016/07/17/IP%E5%9C%B0%E5%9D%80%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://wudiblog.com/2016/07/17/IP地址详解/</id>
+    <published>2016-07-17T03:54:57.000Z</published>
+    <updated>2019-02-02T06:50:57.024Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>IP包头：</strong></p><p><img src="/2016/07/17/IP地址详解/iamge1.png" alt="iamge1"></p><p><strong>IP地址：</strong></p><pre><code>00000000.00000000.00000000.00000000 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1</code></pre><p>​换算成为：</p><p>​0.0.0.0</p><p>​255.255.255.255</p><p><strong>IP地址分类：</strong></p><p><img src="/2016/07/17/IP地址详解/image02.png" alt="image02"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;IP包头：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2016/07/17/IP地址详解/iamge1.png&quot; alt=&quot;iamge1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IP地址：&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;	000000
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="IP" scheme="http://wudiblog.com/tags/IP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP/IP四层模型</title>
+    <link href="http://wudiblog.com/2016/06/29/TCP-IP%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://wudiblog.com/2016/06/29/TCP-IP四层模型/</id>
+    <published>2016-06-29T03:54:57.000Z</published>
+    <updated>2019-02-02T06:54:22.442Z</updated>
+    
+    <content type="html"><![CDATA[<p>TCP/IP模型与OSI参考模型的对应关系：</p><p><img src="/2016/06/29/TCP-IP四层模型/image1.png" alt="image1"></p><p>数据封装的过程：</p><p><img src="/2016/06/29/TCP-IP四层模型/image2.png" alt="image2"></p><p>tcp/ip模型与osi模型的比较：</p><ul><li>共同点：</li><li><ol><li>osi参考模型和tcp/ip参考模型都采用了层次结构的概念</li><li>都能提供面向连接和无连接两种通信服务机制</li></ol></li><li>不同点：</li><li><ol><li>前者是七层模型，后者是四层结构</li><li>对可靠性要求不同（后者更高）</li><li>osi模型是在协议开发前设计的，具有通用性，tcp/ip是先有协议然后建立模型，不适用于非tcp/ip网络</li><li>实际市场应用不同（osi是理论上的模型，并没有成熟的产品，而tcp/ip已经成为“实际上的国际标准”）</li></ol></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;TCP/IP模型与OSI参考模型的对应关系：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2016/06/29/TCP-IP四层模型/image1.png&quot; alt=&quot;image1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;数据封装的过程：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2016/06/29/TCP
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="OSI" scheme="http://wudiblog.com/tags/OSI/"/>
+    
+      <category term="TCP/IP" scheme="http://wudiblog.com/tags/TCP-IP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ISO/OSI七层模型</title>
+    <link href="http://wudiblog.com/2016/05/14/ISO-OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://wudiblog.com/2016/05/14/ISO-OSI七层模型/</id>
+    <published>2016-05-14T01:54:57.000Z</published>
+    <updated>2019-02-02T06:57:52.874Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>iso：国际标准化组织</li><li>osi：开放系统互联模型</li></ul><p>是TCP/IP四层模型的基础</p><p>从低到高依次：</p><p>​物理层 数据链路层 网络层 传输层（下四层实际传输） 会话层 表示层 应用层（上三层给用户服务）</p><p>​物理层：传输单位比特，真正的数据传输</p><p>​数据链路层：传输单位帧，这里边包含MAC地址（物理地址，计算机网卡的硬件地址）</p><p>​网络层：报文，这里边包含IP地址（逻辑地址）</p><p>​传输层：数据段 TPDU（传输协议传输协议）</p><p>​会话层：SPDU(会话协议传输地址)</p><p>​表示层：PPDU（表示协议传输地址）</p><p>​应用层：APDU（应用协议传输地址）</p><p>七层模型：</p><p><img src="/2016/05/14/ISO-OSI七层模型/image1.png" alt="image1"></p><p><img src="/2016/05/14/ISO-OSI七层模型/image2.png" alt="image2"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;iso：国际标准化组织&lt;/li&gt;
+&lt;li&gt;osi：开放系统互联模型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;是TCP/IP四层模型的基础&lt;/p&gt;
+&lt;p&gt;从低到高依次：&lt;/p&gt;
+&lt;p&gt;​	物理层 数据链路层 网络层 传输层（下四层实际传输） 会话层 表示层 应用层（上三层给用
+      
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://wudiblog.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="ISO" scheme="http://wudiblog.com/tags/ISO/"/>
+    
+      <category term="OSI" scheme="http://wudiblog.com/tags/OSI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git初学使用</title>
+    <link href="http://wudiblog.com/2016/03/02/git%E5%88%9D%E5%AD%A6%E4%BD%BF%E7%94%A8/"/>
+    <id>http://wudiblog.com/2016/03/02/git初学使用/</id>
+    <published>2016-03-02T04:22:11.000Z</published>
+    <updated>2019-02-02T07:25:56.975Z</updated>
+    
+    <content type="html"><![CDATA[<p>记忆账号密码</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global credential.helper store</span><br></pre></td></tr></table></figure><p><strong>配置全局信息</strong></p><p>配置全局的用户名、邮箱信息，作为提交人信息</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name “name"</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email "email”</span><br></pre></td></tr></table></figure><p>用户密码输错的话windows解决办法</p><p>​控制面板-用户账户-管理你的凭据-git 保存的用户信息在普通凭据列表里-修改-完成</p><p>克隆 仓库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone 地址</span><br></pre></td></tr></table></figure><p>拉代码</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure><p>提交、推送代码</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add -A 做了修改要先写这个命令</span><br><span class="line">git commit -m "提交的信息" </span><br><span class="line">git push origin master 推送代码到远程 master是分支名</span><br><span class="line"></span><br><span class="line">****重要**** 以后每次提交代码，要先拉取代码，整个流程即add-commit-pull-push,保证远程代码不要有冲突，有冲突在本地修改，再次add-commit-pull-push</span><br></pre></td></tr></table></figure><p>分支相关</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git branch 查看本地所有分支</span><br><span class="line">git branch -a 查看本地和远程所有分支</span><br><span class="line"></span><br><span class="line">git checkout 分支名      切换到某个分支</span><br><span class="line">git checkout -b 分支名   创建分支并切换到该分支</span><br><span class="line">git rm -r --cached .</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;记忆账号密码&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="版本控制" scheme="http://wudiblog.com/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+    
+    
+      <category term="Git" scheme="http://wudiblog.com/tags/Git/"/>
+    
+      <category term="版本管理" scheme="http://wudiblog.com/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+</feed>
